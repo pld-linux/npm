@@ -1,11 +1,10 @@
 # TODO
-# - rather quickly thrown together, install methology could change later
 # - man fixes: npm ERR! Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
-Summary:	A package manager for Node.js
+Summary:	A package manager for node.js
 Name:		npm
 Version:	1.0.106
-Release:	0.4
+Release:	0.6
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
@@ -13,15 +12,34 @@ Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
 # Source0-md5:	44f82461713f911d9a01f194bdc891bd
 BuildRequires:	nodejs >= 0.4
 Requires:	nodejs
+Requires:	nodejs-abbrev >= 1.0.3
+Requires:	nodejs-block-stream
+Requires:	nodejs-devel
+Requires:	nodejs-fast-list
+Requires:	nodejs-fstream
+Requires:	nodejs-graceful-fs >= 1.1.4
+Requires:	nodejs-inherits
+Requires:	nodejs-ini
+Requires:	nodejs-minimatch
+Requires:	nodejs-mkdirp
+Requires:	nodejs-node-uuid >= 1.3.3
+Requires:	nodejs-nopt
+Requires:	nodejs-proto-list
+Requires:	nodejs-read
+Requires:	nodejs-request >= 2.9.100
+Requires:	nodejs-rimraf >= 1.0.9
+Requires:	nodejs-semver >= 1.0.13
+Requires:	nodejs-slide-flow-control
+Requires:	nodejs-tar
+Requires:	nodejs-waf
+Requires:	nodejs-which
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# FIXME: to to match files section this has this value now
-# TODO: this needs to be %{_libdir}/node
 %define		nodejs_libdir %{_prefix}/lib/node_modules
 
 %description
-NPM is a package manager for Node.js. You can use it to install and
+NPM is a package manager for node.js. You can use it to install and
 publish your node programs. It manages dependencies and does other
 cool stuff.
 
@@ -29,66 +47,44 @@ cool stuff.
 %setup -qc
 mv package/* .
 
-%build
-./configure \
-	prefix=$RPM_BUILD_ROOT%{_prefix} \
-	root=$RPM_BUILD_ROOT%{_prefix}/lib/node \
-	binroot=$RPM_BUILD_ROOT%{_bindir} \
-	manroot=$RPM_BUILD_ROOT%{_mandir} \
+# prefix all manpages with "npm-"
+for dir in man/man*; do
+    cd $dir
+    for page in *; do
+        if [[ $page != npm* ]]; then
+            mv $page npm-$page
+        fi
+    done
+    cd -
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm}
 
-node cli.js install -global
+cp -a bin lib cli.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 
-# fix shebangs
-%{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
-	$RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin/*.js \
-	$RPM_BUILD_ROOT%{nodejs_libdir}/npm/cli.js \
-	$RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/semver/bin/semver \
-	$RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/which/bin/which \
-	$RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/nopt/bin/nopt.js
+# ghosted global config files
+# TODO: package as files to have file permissions set
+install -d $RPM_BUILD_ROOT%{_sysconfdir}
+touch $RPM_BUILD_ROOT%{_sysconfdir}/npmrc
+touch $RPM_BUILD_ROOT%{_sysconfdir}/npmignore
 
-# move symlinks to be files
-find $RPM_BUILD_ROOT%{_mandir} -type l | while read man; do
-	src=$(readlink -f $man)
-	rm $man
-	mv $src $man
-done
+# link node_modules to the right folder so global installation works
+#lrwxrwxrwx    1 root    root               24 jaan  21 17:42 /usr/lib/node_modules -> /usr/lib64/../lib/nodejs
+#drwxr-xr-x    2 root    root                0 jaan  21 17:42 /usr/lib/nodejs/npm
+# TODO: this is wrong, the link should be in nodejs or nodejs itself patched to use lib/nodejs
+#ln -s %{nodejs_libdir} $RPM_BUILD_ROOT%{_prefix}/lib/node_modules
 
-# we keep only man format
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc/api
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc/cli
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/html/doc
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/html/api
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/html
+# install to mandir
+install -d $RPM_BUILD_ROOT%{_mandir}
+cp -pr man/* $RPM_BUILD_ROOT%{_mandir}
 
-# not everything copied is useful
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/test
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/npmrc
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/package
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/scripts
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/AUTHORS
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/CHANGES
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/LICENSE
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/Makefile
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/README.md
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/deps/basic-bsdtar-*
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/.bin
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/configure
-
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/request/tests
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/ini/test
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/minimatch/test
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/node-uuid/test
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/rimraf/test
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/semver/test.js
-
-# TODO: package examples to %{_prefix}/src
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/node_modules/nopt/examples
+# FIXME: "npm help" requires this
+ln -s %{_mandir} $RPM_BUILD_ROOT%{nodejs_libdir}/npm/man
 
 # TODO bash-completion separate package
-rm -rf $RPM_BUILD_ROOT%{nodejs_libdir}/npm/lib/utils/completion.sh
 
 %if 0
 %post
@@ -101,8 +97,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CHANGES LICENSE README.md
+%doc AUTHORS LICENSE README.md doc/cli/changelog.md
+%ghost %{_sysconfdir}/npmrc
+%ghost %{_sysconfdir}/npmignore
 %attr(755,root,root) %{_bindir}/npm*
+# TODO: top dir to nodejs package
 %dir %{nodejs_libdir}
 %dir %{nodejs_libdir}/npm
 %{nodejs_libdir}/npm/package.json
@@ -116,6 +115,10 @@ rm -rf $RPM_BUILD_ROOT
 %{nodejs_libdir}/npm/lib/*.js
 %{nodejs_libdir}/npm/lib/utils
 
+# man symlink
+%{nodejs_libdir}/npm/man
+
+%if 0
 # npm private modules: TODO: use external pkgs
 %dir %{nodejs_libdir}/npm/node_modules
 %{nodejs_libdir}/npm/node_modules/abbrev
@@ -130,6 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %{nodejs_libdir}/npm/node_modules/semver
 %{nodejs_libdir}/npm/node_modules/slide
 %{nodejs_libdir}/npm/node_modules/which
+%endif
 
 %{_mandir}/man1/npm*
 %{_mandir}/man3/npm*
