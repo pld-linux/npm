@@ -4,7 +4,7 @@
 Summary:	A package manager for node.js
 Name:		npm
 Version:	1.0.106
-Release:	0.6
+Release:	0.8
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
@@ -14,7 +14,6 @@ BuildRequires:	nodejs >= 0.4
 Requires:	nodejs
 Requires:	nodejs-abbrev >= 1.0.3
 Requires:	nodejs-block-stream
-Requires:	nodejs-devel
 Requires:	nodejs-fast-list
 Requires:	nodejs-fstream
 Requires:	nodejs-graceful-fs >= 1.1.4
@@ -31,8 +30,9 @@ Requires:	nodejs-rimraf >= 1.0.9
 Requires:	nodejs-semver >= 1.0.13
 Requires:	nodejs-slide-flow-control
 Requires:	nodejs-tar
-Requires:	nodejs-waf
 Requires:	nodejs-which
+Suggests:	nodejs-devel
+Suggests:	nodejs-waf
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,17 +65,15 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm}
 cp -a bin lib cli.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 
+# for npm help
+install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
+cp -a doc/cli $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc/cli
+
 # ghosted global config files
 # TODO: package as files to have file permissions set
 install -d $RPM_BUILD_ROOT%{_sysconfdir}
 touch $RPM_BUILD_ROOT%{_sysconfdir}/npmrc
 touch $RPM_BUILD_ROOT%{_sysconfdir}/npmignore
-
-# link node_modules to the right folder so global installation works
-#lrwxrwxrwx    1 root    root               24 jaan  21 17:42 /usr/lib/node_modules -> /usr/lib64/../lib/nodejs
-#drwxr-xr-x    2 root    root                0 jaan  21 17:42 /usr/lib/nodejs/npm
-# TODO: this is wrong, the link should be in nodejs or nodejs itself patched to use lib/nodejs
-#ln -s %{nodejs_libdir} $RPM_BUILD_ROOT%{_prefix}/lib/node_modules
 
 # install to mandir
 install -d $RPM_BUILD_ROOT%{_mandir}
@@ -118,22 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 # man symlink
 %{nodejs_libdir}/npm/man
 
-%if 0
-# npm private modules: TODO: use external pkgs
-%dir %{nodejs_libdir}/npm/node_modules
-%{nodejs_libdir}/npm/node_modules/abbrev
-%{nodejs_libdir}/npm/node_modules/graceful-fs
-%{nodejs_libdir}/npm/node_modules/ini
-%{nodejs_libdir}/npm/node_modules/minimatch
-%{nodejs_libdir}/npm/node_modules/node-uuid
-%{nodejs_libdir}/npm/node_modules/nopt
-%{nodejs_libdir}/npm/node_modules/proto-list
-%{nodejs_libdir}/npm/node_modules/request
-%{nodejs_libdir}/npm/node_modules/rimraf
-%{nodejs_libdir}/npm/node_modules/semver
-%{nodejs_libdir}/npm/node_modules/slide
-%{nodejs_libdir}/npm/node_modules/which
-%endif
+%dir %{nodejs_libdir}/npm/doc
+%{nodejs_libdir}/npm/doc/cli
 
 %{_mandir}/man1/npm*
 %{_mandir}/man3/npm*
