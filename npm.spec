@@ -1,15 +1,15 @@
 # TODO
-# - man fixes: npm ERR! Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
+# - it can't live without this path: Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.0.106
-Release:	0.8
+Version:    1.1.0
+Release:	0.9
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
-Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	44f82461713f911d9a01f194bdc891bd
+Source0:    http://registry.npmjs.org/npm/-/npm-%{version}-2.tgz
+# Source0-md5:	f3beb0775b52ac3235f814b59efc5824
 BuildRequires:	nodejs >= 0.4
 Requires:	nodejs
 Requires:	nodejs-abbrev >= 1.0.3
@@ -47,6 +47,15 @@ cool stuff.
 %setup -qc
 mv package/* .
 
+# fix shebangs
+%{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
+	bin/npm-cli.js \
+	cli.js \
+	lib/utils/cmd-shim.js \
+
+# startup helpers we don't need
+rm bin/npm bin/npm.cmd
+
 # prefix all manpages with "npm-"
 for dir in man/man*; do
     cd $dir
@@ -62,12 +71,12 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm}
 
-cp -a bin lib cli.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -a bin lib package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 
 # for npm help
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
-cp -a doc/cli $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc/cli
+cp -a doc/* $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
 
 # ghosted global config files
 # TODO: package as files to have file permissions set
@@ -83,6 +92,7 @@ cp -pr man/* $RPM_BUILD_ROOT%{_mandir}
 ln -s %{_mandir} $RPM_BUILD_ROOT%{nodejs_libdir}/npm/man
 
 # TODO bash-completion separate package
+rm $RPM_BUILD_ROOT%{nodejs_libdir}/npm/lib/utils/completion.sh
 
 %if 0
 %post
@@ -108,7 +118,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-cli.js
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-get-uid-gid.js
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/read-package-json.js
-%{nodejs_libdir}/npm/cli.js
 %dir %{nodejs_libdir}/npm/lib
 %{nodejs_libdir}/npm/lib/*.js
 %{nodejs_libdir}/npm/lib/utils
@@ -118,6 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{nodejs_libdir}/npm/doc
 %{nodejs_libdir}/npm/doc/cli
+%{nodejs_libdir}/npm/doc/api
 
 %{_mandir}/man1/npm*
 %{_mandir}/man3/npm*
