@@ -1,16 +1,21 @@
 # TODO
+# - put man3 to some -devel-doc package (man pages for npm programming)
 # - it can't live without this path: Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
+# - global config seems wrong:
+# $ npm config get globalconfig
+# /usr/etc/npmrc
 Summary:	A package manager for node.js
 Name:		npm
-Version:    1.1.0
-Release:	0.9
+Version:	1.1.0
+Release:	1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
-Source0:    http://registry.npmjs.org/npm/-/npm-%{version}-2.tgz
+Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}-2.tgz
 # Source0-md5:	f3beb0775b52ac3235f814b59efc5824
 BuildRequires:	nodejs >= 0.4
+BuildRequires:	rpmbuild(macros) >= 1.634
 Requires:	nodejs
 Requires:	nodejs-abbrev >= 1.0.3
 Requires:	nodejs-block-stream
@@ -31,12 +36,10 @@ Requires:	nodejs-semver >= 1.0.13
 Requires:	nodejs-slide-flow-control
 Requires:	nodejs-tar
 Requires:	nodejs-which
-Suggests:	nodejs-devel
+# waf used for binary packages
 Suggests:	nodejs-waf
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		nodejs_libdir %{_prefix}/lib/node_modules
 
 %description
 NPM is a package manager for node.js. You can use it to install and
@@ -58,13 +61,13 @@ rm bin/npm bin/npm.cmd
 
 # prefix all manpages with "npm-"
 for dir in man/man*; do
-    cd $dir
-    for page in *; do
-        if [[ $page != npm* ]]; then
-            mv $page npm-$page
-        fi
-    done
-    cd -
+	cd $dir
+	for page in *; do
+		if [[ $page != npm* ]]; then
+			mv $page npm-$page
+		fi
+	done
+	cd -
 done
 
 %install
@@ -108,9 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS LICENSE README.md doc/cli/changelog.md
 %ghost %{_sysconfdir}/npmrc
 %ghost %{_sysconfdir}/npmignore
-%attr(755,root,root) %{_bindir}/npm*
-# TODO: top dir to nodejs package
-%dir %{nodejs_libdir}
+%attr(755,root,root) %{_bindir}/npm
 %dir %{nodejs_libdir}/npm
 %{nodejs_libdir}/npm/package.json
 
