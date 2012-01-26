@@ -8,7 +8,7 @@
 Summary:	A package manager for node.js
 Name:		npm
 Version:	1.1.0
-Release:	1
+Release:	2
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
@@ -46,6 +46,19 @@ NPM is a package manager for node.js. You can use it to install and
 publish your node programs. It manages dependencies and does other
 cool stuff.
 
+%package -n bash-completion-%{name}
+Summary:	bash-completion for %{name}
+Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla %{name}
+Group:		Applications/Shells
+Requires:	%{name}
+Requires:	bash-completion
+
+%description -n bash-completion-%{name}
+bash-completion for %{name}.
+
+%description -n bash-completion-%{name} -l pl.UTF-8
+bashowe uzupełnianie nazw dla %{name}.
+
 %prep
 %setup -qc
 mv package/* .
@@ -72,7 +85,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm,/etc/bash_completion.d}
 
 cp -a bin lib package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
@@ -94,8 +107,8 @@ cp -pr man/* $RPM_BUILD_ROOT%{_mandir}
 # FIXME: "npm help" requires this
 ln -s %{_mandir} $RPM_BUILD_ROOT%{nodejs_libdir}/npm/man
 
-# TODO bash-completion separate package
-rm $RPM_BUILD_ROOT%{nodejs_libdir}/npm/lib/utils/completion.sh
+mv $RPM_BUILD_ROOT%{nodejs_libdir}/npm/lib/utils/completion.sh \
+	$RPM_BUILD_ROOT/etc/bash_completion.d/%{name}.sh
 
 %if 0
 %post
@@ -132,3 +145,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_mandir}/man1/npm*
 %{_mandir}/man3/npm*
+
+%files -n bash-completion-%{name}
+%defattr(644,root,root,755)
+/etc/bash_completion.d/*
