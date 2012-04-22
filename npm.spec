@@ -7,13 +7,13 @@
 # /usr/etc/npmrc
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.1.0
-Release:	2
+Version:	1.1.18
+Release:	1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
-Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}-2.tgz
-# Source0-md5:	f3beb0775b52ac3235f814b59efc5824
+Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
+# Source0-md5:	eb1303e3208dfd6cf2dc663b6caca381
 BuildRequires:	nodejs >= 0.4
 BuildRequires:	rpmbuild(macros) >= 1.634
 Requires:	nodejs
@@ -87,7 +87,7 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm,/etc/bash_completion.d}
 
-cp -a bin lib package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -a bin lib node_modules package.json *.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 
 # for npm help
@@ -126,15 +126,17 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %{_sysconfdir}/npmignore
 %attr(755,root,root) %{_bindir}/npm
 %dir %{nodejs_libdir}/npm
+%{nodejs_libdir}/npm/*.js
 %{nodejs_libdir}/npm/package.json
 
 %dir %{nodejs_libdir}/npm/bin
-%attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-cli.js
-%attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-get-uid-gid.js
-%attr(755,root,root) %{nodejs_libdir}/npm/bin/read-package-json.js
+%attr(755,root,root) %{nodejs_libdir}/npm/bin/*.js
+%dir %{nodejs_libdir}/npm/bin/node-gyp-bin/
+%attr(755,root,root) %{nodejs_libdir}/npm/bin/node-gyp-bin/node-gyp
 %dir %{nodejs_libdir}/npm/lib
 %{nodejs_libdir}/npm/lib/*.js
 %{nodejs_libdir}/npm/lib/utils
+%{nodejs_libdir}/npm/node_modules
 
 # man symlink
 %{nodejs_libdir}/npm/man
