@@ -2,13 +2,14 @@
 # - put man3 to some -devel-doc package (man pages for npm programming)
 # - it can't live without this path: Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
+# - package new node deps
 # - global config seems wrong:
 # $ npm config get globalconfig
 # /usr/etc/npmrc
 Summary:	A package manager for node.js
 Name:		npm
 Version:	1.1.18
-Release:	1
+Release:	0.1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
