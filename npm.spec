@@ -40,6 +40,7 @@ Requires:	nodejs-semver >= 1.0.13
 Requires:	nodejs-slide-flow-control
 Requires:	nodejs-tar >= 0.1.13
 Requires:	nodejs-uid-number
+Requires:	nodejs-which
 # gyp used for binary packages in nodejs
 Suggests:	nodejs-gyp >= 0.3.8
 # waf used for binary packages in nodejs < 0.8
