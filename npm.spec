@@ -2,42 +2,47 @@
 # - put man3 to some -devel-doc package (man pages for npm programming)
 # - it can't live without this path: Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
-# - package new node deps
-# - global config seems wrong:
-# $ npm config get globalconfig
-# /usr/etc/npmrc
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.1.18
-Release:	0.1
+Version:	1.1.19
+Release:	1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	eb1303e3208dfd6cf2dc663b6caca381
-BuildRequires:	nodejs >= 0.4
+# Source0-md5:	1838db326e36430b7cf78f0c5aa77636
+BuildRequires:	bash
+BuildRequires:	nodejs >= 0.6
 BuildRequires:	rpmbuild(macros) >= 1.634
+BuildRequires:	sed >= 4.0
 Requires:	nodejs
 Requires:	nodejs-abbrev >= 1.0.3
-Requires:	nodejs-block-stream
+Requires:	nodejs-archy
+Requires:	nodejs-block-stream >= 0.0.5
+Requires:	nodejs-chownr
+Requires:	nodejs-devel
 Requires:	nodejs-fast-list
-Requires:	nodejs-fstream
-Requires:	nodejs-graceful-fs >= 1.1.4
+Requires:	nodejs-fstream >= 0.1.17
+Requires:	nodejs-fstream-npm
+Requires:	nodejs-graceful-fs >= 1.1.8
 Requires:	nodejs-inherits
-Requires:	nodejs-ini
-Requires:	nodejs-minimatch
+Requires:	nodejs-ini >= 1.0.1
+Requires:	nodejs-lru-cache >= 1.0.6
+Requires:	nodejs-minimatch >= 0.2.2
 Requires:	nodejs-mkdirp
 Requires:	nodejs-node-uuid >= 1.3.3
 Requires:	nodejs-nopt
 Requires:	nodejs-proto-list
 Requires:	nodejs-read
-Requires:	nodejs-request >= 2.9.100
+Requires:	nodejs-request >= 2.9.153
 Requires:	nodejs-rimraf >= 1.0.9
 Requires:	nodejs-semver >= 1.0.13
 Requires:	nodejs-slide-flow-control
-Requires:	nodejs-tar
-Requires:	nodejs-which
-# waf used for binary packages
+Requires:	nodejs-tar >= 0.1.13
+Requires:	nodejs-uid-number
+# gyp used for binary packages in nodejs
+Suggests:	nodejs-gyp >= 0.3.8
+# waf used for binary packages in nodejs < 0.8
 Suggests:	nodejs-waf
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -84,11 +89,21 @@ for dir in man/man*; do
 	cd -
 done
 
+%build
+# forces npm to keep config files in /etc instead of /usr/etc
+./configure \
+	--globalconfig=%{_sysconfdir}/npmrc \
+	--globalignorefile=%{_sysconfdir}/npmignore
+
+cat npmrc
+
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm,/etc/bash_completion.d}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm/bin,/etc/bash_completion.d}
+install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 
-cp -a bin lib node_modules package.json *.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -a lib cli.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -p bin/*.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 
 # for npm help
@@ -98,7 +113,7 @@ cp -a doc/* $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
 # ghosted global config files
 # TODO: package as files to have file permissions set
 install -d $RPM_BUILD_ROOT%{_sysconfdir}
-touch $RPM_BUILD_ROOT%{_sysconfdir}/npmrc
+cp -p npmrc $RPM_BUILD_ROOT%{_sysconfdir}/npmrc
 touch $RPM_BUILD_ROOT%{_sysconfdir}/npmignore
 
 # install to mandir
@@ -127,17 +142,15 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %{_sysconfdir}/npmignore
 %attr(755,root,root) %{_bindir}/npm
 %dir %{nodejs_libdir}/npm
-%{nodejs_libdir}/npm/*.js
 %{nodejs_libdir}/npm/package.json
+%{nodejs_libdir}/npm/cli.js
 
 %dir %{nodejs_libdir}/npm/bin
-%attr(755,root,root) %{nodejs_libdir}/npm/bin/*.js
-%dir %{nodejs_libdir}/npm/bin/node-gyp-bin/
-%attr(755,root,root) %{nodejs_libdir}/npm/bin/node-gyp-bin/node-gyp
+%attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-cli.js
+%attr(755,root,root) %{nodejs_libdir}/npm/bin/read-package-json.js
 %dir %{nodejs_libdir}/npm/lib
 %{nodejs_libdir}/npm/lib/*.js
 %{nodejs_libdir}/npm/lib/utils
-%{nodejs_libdir}/npm/node_modules
 
 # man symlink
 %{nodejs_libdir}/npm/man
