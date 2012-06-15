@@ -127,19 +127,13 @@ ln -s %{_mandir} $RPM_BUILD_ROOT%{nodejs_libdir}/npm/man
 mv $RPM_BUILD_ROOT%{nodejs_libdir}/npm/lib/utils/completion.sh \
 	$RPM_BUILD_ROOT/etc/bash_completion.d/%{name}.sh
 
-%if 0
-%post
-# This section is the workaround does not work properly npm install.
-%{_bindir}/npm config set registry http://registry.npmjs.org/
-%endif
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS LICENSE README.md doc/cli/changelog.md
-%ghost %{_sysconfdir}/npmrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/npmrc
 %ghost %{_sysconfdir}/npmignore
 %attr(755,root,root) %{_bindir}/npm
 %dir %{nodejs_libdir}/npm
