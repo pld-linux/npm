@@ -5,7 +5,7 @@
 Summary:	A package manager for node.js
 Name:		npm
 Version:	1.1.19
-Release:	1
+Release:	2
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm/bin,/etc/bash_completion.d}
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 
-cp -a lib cli.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -a lib cli.js npmrc package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 cp -p bin/*.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 
@@ -139,6 +139,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{nodejs_libdir}/npm
 %{nodejs_libdir}/npm/package.json
 %{nodejs_libdir}/npm/cli.js
+%{nodejs_libdir}/npm/npmrc
 
 %dir %{nodejs_libdir}/npm/bin
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-cli.js
