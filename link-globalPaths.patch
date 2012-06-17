@@ -1,0 +1,38 @@
+--- npm-1.1.19/lib/link.js~	2012-03-28 06:25:48.000000000 +0300
++++ npm-1.1.19/lib/link.js	2012-06-17 23:14:39.410104873 +0300
+@@ -12,6 +12,7 @@
+   , relativize = require("./utils/relativize.js")
+   , rm = require("rimraf")
+   , output = require("./utils/output.js")
++  , globalPaths = require('module').globalPaths
+   , build = require("./build.js")
+ 
+ module.exports = link
+@@ -76,11 +94,24 @@
+       })
+     }
+ 
+-    fs.lstat(pp, function (er, st) {
+-      if (er) {
++    // find pp from globalPaths
++    asyncMap(globalPaths, function(f, cb) {
++      f = path.resolve(f, pkg)
++      fs.lstat(f, function(er, st) {
++        if (er) {
++          cb()
++        } else {
++          cb(null, f, st)
++        }
++      });
++    }, function(er, f, st) {
++      pp = f && f[0] || path.resolve(npm.globalDir, pkg)
++
++      if (er) return cb()
++      if (!f || !f[0]) {
+         rp = pp
+         return npm.commands.install(t, pkg, n)
+-      } else if (!st.isSymbolicLink()) {
++      } else if (!st[0].isSymbolicLink()) {
+         rp = pp
+         next()
+       } else {

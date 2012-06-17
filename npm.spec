@@ -5,12 +5,13 @@
 Summary:	A package manager for node.js
 Name:		npm
 Version:	1.1.19
-Release:	2
+Release:	3
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
 # Source0-md5:	1838db326e36430b7cf78f0c5aa77636
+Patch0:		link-globalPaths.patch
 BuildRequires:	bash
 BuildRequires:	nodejs >= 0.6
 BuildRequires:	rpmbuild(macros) >= 1.634
@@ -69,6 +70,7 @@ bashowe uzupełnianie nazw dla %{name}.
 %prep
 %setup -qc
 mv package/* .
+%patch0 -p1
 
 # fix shebangs
 %{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
