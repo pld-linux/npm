@@ -1,14 +1,15 @@
---- npm-1.1.19/lib/link.js~	2012-03-28 06:25:48.000000000 +0300
-+++ npm-1.1.19/lib/link.js	2012-06-17 23:14:39.410104873 +0300
-@@ -12,6 +12,7 @@
-   , relativize = require("./utils/relativize.js")
+diff -ur npm-1.1.68-o/lib/link.js npm-1.1.68/lib/link.js
+--- npm-1.1.68-o/lib/link.js	2012-08-22 11:43:26.000000000 -0600
++++ npm-1.1.68/lib/link.js	2012-12-02 11:51:35.000000000 -0700
+@@ -9,6 +9,7 @@
+   , chain = require("slide").chain
+   , path = require("path")
    , rm = require("rimraf")
-   , output = require("./utils/output.js")
 +  , globalPaths = require('module').globalPaths
    , build = require("./build.js")
  
  module.exports = link
-@@ -76,11 +94,24 @@
+@@ -78,11 +79,24 @@
        })
      }
  
