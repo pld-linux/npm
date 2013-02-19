@@ -81,7 +81,6 @@ Requires:	nodejs-tar < 0.2.0
 Requires:	nodejs-uid-number < 1.0.0
 Requires:	nodejs-which >= 1.0.0
 Requires:	nodejs-which < 2.0.0
-Requires:
 # waf used for binary packages in nodejs < 0.8
 Suggests:	nodejs-waf
 BuildArch:	noarch
