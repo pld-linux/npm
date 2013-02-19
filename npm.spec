@@ -17,43 +17,71 @@ BuildRequires:	nodejs >= 0.9
 BuildRequires:	rpmbuild(macros) >= 1.634
 BuildRequires:	sed >= 4.0
 Requires:	nodejs
-Requires:	nodejs-abbrev >= 1.0.4, nodejs-abbrev < 2.0.0
-Requires:	nodejs-ansi >= 0.1.2, nodejs-ansi < 0.2.0
+Requires:	nodejs-abbrev >= 1.0.4
+Requires:	nodejs-abbrev < 2.0.0
+Requires:	nodejs-ansi >= 0.1.2
+Requires:	nodejs-ansi < 0.2.0
 Requires:	nodejs-archy < 1.0.0
 Requires:	nodejs-block-stream
 Requires:	nodejs-chownr < 1.0.0
 Requires:	nodejs-devel
-Requires:	nodejs-fstream >= 0.1.22, nodejs-fstream < 0.2.0
-Requires:	nodejs-fstream-npm >= 0.1.3, nodejs-fstream-npm < 0.2.0
-Requires:	nodejs-gyp >= 0.8.1, nodejs-gyp < 0.9.0
-Requires:	nodejs-glob >= 3.1.18, nodejs-glob < 3.2.0
-Requires:	nodejs-graceful-fs >= 1.2.0, nodejs-graceful-fs < 1.3.0
-Requires:	nodejs-inherits >= 1.0.0, nodejs-inherits < 2.0.0
-Requires:	nodejs-ini >= 1.1.0, nodejs-ini < 1.2.0
+Requires:	nodejs-fstream >= 0.1.22
+Requires:	nodejs-fstream < 0.2.0
+Requires:	nodejs-fstream-npm >= 0.1.3
+Requires:	nodejs-fstream-npm < 0.2.0
+Requires:	nodejs-glob >= 3.1.18
+Requires:	nodejs-glob < 3.2.0
+Requires:	nodejs-graceful-fs >= 1.2.0
+Requires:	nodejs-graceful-fs < 1.3.0
+Requires:	nodejs-gyp >= 0.8.1
+Requires:	nodejs-gyp < 0.9.0
+Requires:	nodejs-inherits >= 1.0.0
+Requires:	nodejs-inherits < 2.0.0
+Requires:	nodejs-ini >= 1.1.0
+Requires:	nodejs-ini < 1.2.0
 Requires:	nodejs-init-package-json = 0.0.6
-Requires:	nodejs-lockfile >= 0.3.0, nodejs-lockfile < 0.4.0
-Requires:	nodejs-lru-cache >= 2.0.0, nodejs-lru-cache < 2.1.0
-Requires:	nodejs-minimatch >= 0.2.8, nodejs-minimatch < 1.0.0
-Requires:	nodejs-mkdirp >= 0.3.3, nodejs-mkdirp < 0.4.0
+Requires:	nodejs-lockfile >= 0.3.0
+Requires:	nodejs-lockfile < 0.4.0
+Requires:	nodejs-lru-cache >= 2.0.0
+Requires:	nodejs-lru-cache < 2.1.0
+Requires:	nodejs-minimatch >= 0.2.8
+Requires:	nodejs-minimatch < 1.0.0
+Requires:	nodejs-mkdirp >= 0.3.3
+Requires:	nodejs-mkdirp < 0.4.0
 Requires:	nodejs-node-uuid >= 1.3.3
-Requires:	nodejs-nopt >= 2.1.1, nodejs-nopt < 2.2.0
+Requires:	nodejs-nopt >= 2.1.1
+Requires:	nodejs-nopt < 2.2.0
+Requires:	nodejs-npm-registry-client >= 0.2.13
+Requires:	nodejs-npm-registry-client < 0.3.0
 Requires:	nodejs-npmconf < 1.0.0
 Requires:	nodejs-npmlog < 1.0.0
-Requires:	nodejs-once >= 1.1.1, nodejs-once < 1.2.0
-Requires:	nodejs-opener >= 1.3.0, nodejs-opener < 1.4.0
+Requires:	nodejs-once >= 1.1.1
+Requires:	nodejs-once < 1.2.0
+Requires:	nodejs-opener >= 1.3.0
+Requires:	nodejs-opener < 1.4.0
 Requires:	nodejs-osenv < 1.0.0
-Requires:	nodejs-read >= 1.0.4, nodejs-read < 1.1.0
-Requires:	nodejs-read-package-json >= 0.2.0, nodejs-read-package-json < 0.3.0
-Requires:	nodejs-read-installed >= 0.0.3, nodejs-read-installed < 0.1.0
-Requires:	nodejs-npm-registry-client >= 0.2.13, nodejs-npm-registry-client < 0.3.0
-Requires:	nodejs-request >= 2.9.153, nodejs-request < 2.10
-Requires:	nodejs-retry >= 0.6.0, nodejs-retry < 0.7.0
-Requires:	nodejs-rimraf >= 2.0.0, nodejs-rimraf < 3.0.0
-Requires:	nodejs-semver >= 1.1.2, nodejs-semver < 1.2.0
-Requires:	nodejs-slide >= 1.0.0, nodejs-slide < 2.0.0
-Requires:	nodejs-tar >= 0.1.12, nodejs-tar < 0.2.0
+Requires:	nodejs-read >= 1.0.4
+Requires:	nodejs-read < 1.1.0
+Requires:	nodejs-read-installed >= 0.0.3
+Requires:	nodejs-read-installed < 1
+Requires:	nodejs-read-package-json >= 0.2.0
+Requires:	nodejs-read-package-json < 0.3.0
+Requires:	nodejs-request >= 2.9.153
+Requires:	nodejs-request < 2.10
+Requires:	nodejs-retry >= 0.6.0
+Requires:	nodejs-retry < 0.7.0
+Requires:	nodejs-rimraf >= 2.0.0
+Requires:	nodejs-rimraf < 3.0.0
+Requires:	nodejs-semver >= 1.1.2
+Requires:	nodejs-semver < 1.2.0
+Requires:	nodejs-slide >= 1.0.0
+Requires:	nodejs-slide < 2.0.0
+Requires:	nodejs-tar >= 0.1.16
+Requires:	nodejs-tar < 0.2.0
 Requires:	nodejs-uid-number < 1.0.0
-Requires:	nodejs-which >= 1.0.0, nodejs-which < 2.0.0 
+Requires:	nodejs-which >= 1.0.0
+Requires:	nodejs-which < 2.0.0
+Requires:
 # waf used for binary packages in nodejs < 0.8
 Suggests:	nodejs-waf
 BuildArch:	noarch
