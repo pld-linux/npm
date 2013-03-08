@@ -4,13 +4,13 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.2.11
+Version:	1.2.14
 Release:	1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	3a5bc0ef41525c8733b227fb75b7aeea
+# Source0-md5:	10ad8ea7ab12be9d82ae96f39582c941
 Patch0:		link-globalPaths.patch
 BuildRequires:	bash
 BuildRequires:	nodejs >= 0.9
@@ -23,13 +23,15 @@ Requires:	nodejs-ansi >= 0.1.2
 Requires:	nodejs-ansi < 0.2.0
 Requires:	nodejs-archy < 1.0.0
 Requires:	nodejs-block-stream
+Requires:	nodejs-chmodr >= 0.1.0
+Requires:	nodejs-chmodr < 0.2.0
 Requires:	nodejs-chownr < 1.0.0
 Requires:	nodejs-devel
 Requires:	nodejs-fstream >= 0.1.22
 Requires:	nodejs-fstream < 0.2.0
 Requires:	nodejs-fstream-npm >= 0.1.3
 Requires:	nodejs-fstream-npm < 0.2.0
-Requires:	nodejs-glob >= 3.1.18
+Requires:	nodejs-glob >= 3.1.21
 Requires:	nodejs-glob < 3.2.0
 Requires:	nodejs-graceful-fs >= 1.2.0
 Requires:	nodejs-graceful-fs < 1.3.0
@@ -44,14 +46,14 @@ Requires:	nodejs-lockfile >= 0.3.0
 Requires:	nodejs-lockfile < 0.4.0
 Requires:	nodejs-lru-cache >= 2.0.0
 Requires:	nodejs-lru-cache < 2.1.0
-Requires:	nodejs-minimatch >= 0.2.8
-Requires:	nodejs-minimatch < 1.0.0
+Requires:	nodejs-minimatch >= 0.2.11
+Requires:	nodejs-minimatch < 0.3.0
 Requires:	nodejs-mkdirp >= 0.3.3
 Requires:	nodejs-mkdirp < 0.4.0
 Requires:	nodejs-node-uuid >= 1.3.3
 Requires:	nodejs-nopt >= 2.1.1
 Requires:	nodejs-nopt < 2.2.0
-Requires:	nodejs-npm-registry-client >= 0.2.13
+Requires:	nodejs-npm-registry-client >= 0.2.18
 Requires:	nodejs-npm-registry-client < 0.3.0
 Requires:	nodejs-npmconf < 1.0.0
 Requires:	nodejs-npmlog < 1.0.0
@@ -62,11 +64,11 @@ Requires:	nodejs-opener < 1.4.0
 Requires:	nodejs-osenv < 1.0.0
 Requires:	nodejs-read >= 1.0.4
 Requires:	nodejs-read < 1.1.0
-Requires:	nodejs-read-installed >= 0.0.3
+Requires:	nodejs-read-installed >= 0.1.1
 Requires:	nodejs-read-installed < 1
-Requires:	nodejs-read-package-json >= 0.2.0
+Requires:	nodejs-read-package-json >= 0.2.2
 Requires:	nodejs-read-package-json < 0.3.0
-Requires:	nodejs-request >= 2.9.153
+Requires:	nodejs-request >= 2.9.203
 Requires:	nodejs-request < 2.10
 Requires:	nodejs-retry >= 0.6.0
 Requires:	nodejs-retry < 0.7.0
