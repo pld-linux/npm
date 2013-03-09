@@ -44,8 +44,8 @@ Requires:	nodejs-ini < 1.2.0
 Requires:	nodejs-init-package-json = 0.0.6
 Requires:	nodejs-lockfile >= 0.3.0
 Requires:	nodejs-lockfile < 0.4.0
-Requires:	nodejs-lru-cache >= 2.0.0
-Requires:	nodejs-lru-cache < 2.1.0
+Requires:	nodejs-lru-cache >= 2.2.2
+Requires:	nodejs-lru-cache < 2.3.0
 Requires:	nodejs-minimatch >= 0.2.11
 Requires:	nodejs-minimatch < 0.3.0
 Requires:	nodejs-mkdirp >= 0.3.3
