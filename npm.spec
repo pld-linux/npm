@@ -1,16 +1,17 @@
 # TODO
+# - https://github.com/isaacs/npm/compare/v1.2.14...v1.2.17
 # - put man3 to some -devel-doc package (man pages for npm programming)
 # - it can't live without this path: Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.2.14
+Version:	1.2.17
 Release:	1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	10ad8ea7ab12be9d82ae96f39582c941
+# Source0-md5:	5df04ae977e5e2df2508936ede49c4e2
 Patch0:		link-globalPaths.patch
 BuildRequires:	bash
 BuildRequires:	nodejs >= 0.9
@@ -25,6 +26,8 @@ Requires:	nodejs-archy < 1.0.0
 Requires:	nodejs-block-stream
 Requires:	nodejs-chmodr >= 0.1.0
 Requires:	nodejs-chmodr < 0.2.0
+Requires:	nodejs-cmd-shim >= 1.1.0
+Requires:	nodejs-cmd-shim < 1.2.0
 Requires:	nodejs-chownr < 1.0.0
 Requires:	nodejs-devel
 Requires:	nodejs-fstream >= 0.1.22
@@ -35,8 +38,8 @@ Requires:	nodejs-glob >= 3.1.21
 Requires:	nodejs-glob < 3.2.0
 Requires:	nodejs-graceful-fs >= 1.2.0
 Requires:	nodejs-graceful-fs < 1.3.0
-Requires:	nodejs-gyp >= 0.8.1
-Requires:	nodejs-gyp < 0.9.0
+Requires:	nodejs-gyp >= 0.9.3
+Requires:	nodejs-gyp < 0.10.0
 Requires:	nodejs-inherits >= 1.0.0
 Requires:	nodejs-inherits < 2.0.0
 Requires:	nodejs-ini >= 1.1.0
@@ -44,8 +47,8 @@ Requires:	nodejs-ini < 1.2.0
 Requires:	nodejs-init-package-json = 0.0.6
 Requires:	nodejs-lockfile >= 0.3.0
 Requires:	nodejs-lockfile < 0.4.0
-Requires:	nodejs-lru-cache >= 2.2.2
-Requires:	nodejs-lru-cache < 2.3.0
+Requires:	nodejs-lru-cache >= 2.3.0
+Requires:	nodejs-lru-cache < 2.4.0
 Requires:	nodejs-minimatch >= 0.2.11
 Requires:	nodejs-minimatch < 0.3.0
 Requires:	nodejs-mkdirp >= 0.3.3
@@ -66,8 +69,8 @@ Requires:	nodejs-read >= 1.0.4
 Requires:	nodejs-read < 1.1.0
 Requires:	nodejs-read-installed >= 0.1.1
 Requires:	nodejs-read-installed < 1
-Requires:	nodejs-read-package-json >= 0.2.2
-Requires:	nodejs-read-package-json < 0.3.0
+Requires:	nodejs-read-package-json >= 0.3.0
+Requires:	nodejs-read-package-json < 0.4.0
 Requires:	nodejs-request >= 2.9.203
 Requires:	nodejs-request < 2.10
 Requires:	nodejs-retry >= 0.6.0
@@ -78,7 +81,7 @@ Requires:	nodejs-semver >= 1.1.2
 Requires:	nodejs-semver < 1.2.0
 Requires:	nodejs-slide >= 1.0.0
 Requires:	nodejs-slide < 2.0.0
-Requires:	nodejs-tar >= 0.1.16
+Requires:	nodejs-tar >= 0.1.17
 Requires:	nodejs-tar < 0.2.0
 Requires:	nodejs-uid-number < 1.0.0
 Requires:	nodejs-which >= 1.0.0
