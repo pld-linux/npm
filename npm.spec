@@ -13,6 +13,7 @@ URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
 # Source0-md5:	5df04ae977e5e2df2508936ede49c4e2
 Patch0:		link-globalPaths.patch
+Patch1:		cmd-shim-optional.patch
 BuildRequires:	bash
 BuildRequires:	nodejs >= 0.9
 BuildRequires:	rpmbuild(macros) >= 1.634
@@ -26,8 +27,6 @@ Requires:	nodejs-archy < 1.0.0
 Requires:	nodejs-block-stream
 Requires:	nodejs-chmodr >= 0.1.0
 Requires:	nodejs-chmodr < 0.2.0
-Requires:	nodejs-cmd-shim >= 1.1.0
-Requires:	nodejs-cmd-shim < 1.2.0
 Requires:	nodejs-chownr < 1.0.0
 Requires:	nodejs-devel
 Requires:	nodejs-fstream >= 0.1.22
@@ -113,6 +112,7 @@ bashowe uzupełnianie nazw dla %{name}.
 %setup -qc
 mv package/* .
 %patch0 -p1
+%patch1 -p1
 
 # fix shebangs
 %{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
