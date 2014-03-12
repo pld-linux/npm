@@ -6,8 +6,8 @@
 Summary:	A package manager for node.js
 Name:		npm
 Version:	1.4.4
-Release:	1
-License:	MIT License
+Release:	2
+License:	Artistic-2.0
 Group:		Development/Libraries
 URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
@@ -34,7 +34,7 @@ Requires:	nodejs-child-process-close >= 0.1.1
 Requires:	nodejs-chmodr < 0.2.0
 Requires:	nodejs-chmodr >= 0.1.0
 Requires:	nodejs-chownr < 1.0.0
-Requires:	nodejs-columify = 0.1.2
+Requires:	nodejs-columnify = 0.1.2
 Requires:	nodejs-devel
 Requires:	nodejs-editor = 0.0.5
 Requires:	nodejs-fstream < 0.2.0
@@ -64,7 +64,7 @@ Requires:	nodejs-nopt >= 2.2.0
 Requires:	nodejs-npm-install-checks < 1.1.0
 Requires:	nodejs-npm-install-checks >= 1.0.0
 Requires:	nodejs-npm-registry-client < 0.5.0
-Requires:	nodejs-npm-reqistry-client >= 0.4.4
+Requires:	nodejs-npm-registry-client >= 0.4.4
 Requires:	nodejs-npm-user-validate = 0.0.3
 Requires:	nodejs-npmconf < 0.2.0
 Requires:	nodejs-npmconf >= 0.1.12
