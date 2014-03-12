@@ -5,13 +5,13 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.2.17
+Version:	1.4.4
 Release:	1
 License:	MIT License
 Group:		Development/Libraries
 URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	5df04ae977e5e2df2508936ede49c4e2
+# Source0-md5:	78430905996a588031fdbd78facd18b9
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 BuildRequires:	bash
@@ -19,72 +19,88 @@ BuildRequires:	nodejs >= 0.9
 BuildRequires:	rpmbuild(macros) >= 1.634
 BuildRequires:	sed >= 4.0
 Requires:	nodejs
+Requires:	nodejs-abbrev < 1.1.0
 Requires:	nodejs-abbrev >= 1.0.4
-Requires:	nodejs-abbrev < 2.0.0
-Requires:	nodejs-ansi >= 0.1.2
-Requires:	nodejs-ansi < 0.2.0
+Requires:	nodejs-ansi < 0.3.0
+Requires:	nodejs-ansi >= 0.2.1
+Requires:	nodejs-ansicolors < 0.4.0
+Requires:	nodejs-ansicolors >= 0.3.2
+Requires:	nodejs-ansistyles < 0.2.0
+Requires:	nodejs-ansistyles >= 0.1.3
 Requires:	nodejs-archy < 1.0.0
-Requires:	nodejs-block-stream
-Requires:	nodejs-chmodr >= 0.1.0
+Requires:	nodejs-block-stream = 0.0.7
+Requires:	nodejs-child-process-close < 0.2.0
+Requires:	nodejs-child-process-close >= 0.1.1
 Requires:	nodejs-chmodr < 0.2.0
+Requires:	nodejs-chmodr >= 0.1.0
 Requires:	nodejs-chownr < 1.0.0
+Requires:	nodejs-columify = 0.1.2
 Requires:	nodejs-devel
-Requires:	nodejs-fstream >= 0.1.22
+Requires:	nodejs-editor = 0.0.5
 Requires:	nodejs-fstream < 0.2.0
-Requires:	nodejs-fstream-npm >= 0.1.3
+Requires:	nodejs-fstream >= 0.1.25
 Requires:	nodejs-fstream-npm < 0.2.0
-Requires:	nodejs-glob >= 3.1.21
-Requires:	nodejs-glob < 3.2.0
-Requires:	nodejs-graceful-fs >= 1.2.0
-Requires:	nodejs-graceful-fs < 1.3.0
-Requires:	nodejs-gyp >= 0.9.3
-Requires:	nodejs-gyp < 0.10.0
-Requires:	nodejs-inherits >= 1.0.0
-Requires:	nodejs-inherits < 2.0.0
-Requires:	nodejs-ini >= 1.1.0
+Requires:	nodejs-fstream-npm >= 0.1.6
+Requires:	nodejs-github-url-from-git = 1.1.1
+Requires:	nodejs-github-url-from-username-repo = 0.0.2
+Requires:	nodejs-glob = 3.2.7
+Requires:	nodejs-graceful-fs < 3.0.0
+Requires:	nodejs-graceful-fs >= 2.0.2
+Requires:	nodejs-gyp < 0.13.0
+Requires:	nodejs-gyp >= 0.12.2
 Requires:	nodejs-ini < 1.2.0
-Requires:	nodejs-init-package-json = 0.0.6
-Requires:	nodejs-lockfile >= 0.3.0
-Requires:	nodejs-lockfile < 0.4.0
-Requires:	nodejs-lru-cache >= 2.3.0
-Requires:	nodejs-lru-cache < 2.4.0
-Requires:	nodejs-minimatch >= 0.2.11
+Requires:	nodejs-ini >= 1.1.0
+Requires:	nodejs-init-package-json = 0.0.14
+Requires:	nodejs-lockfile < 0.5.0
+Requires:	nodejs-lockfile >= 0.4.0
+Requires:	nodejs-lru-cache < 2.6.0
+Requires:	nodejs-lru-cache >= 2.5.0
 Requires:	nodejs-minimatch < 0.3.0
-Requires:	nodejs-mkdirp >= 0.3.3
+Requires:	nodejs-minimatch >= 0.2.14
 Requires:	nodejs-mkdirp < 0.4.0
-Requires:	nodejs-node-uuid >= 1.3.3
-Requires:	nodejs-nopt >= 2.1.1
-Requires:	nodejs-nopt < 2.2.0
-Requires:	nodejs-npm-registry-client >= 0.2.18
-Requires:	nodejs-npm-registry-client < 0.3.0
-Requires:	nodejs-npmconf < 1.0.0
-Requires:	nodejs-npmlog < 1.0.0
-Requires:	nodejs-once >= 1.1.1
-Requires:	nodejs-once < 1.2.0
-Requires:	nodejs-opener >= 1.3.0
+Requires:	nodejs-mkdirp >= 0.3.5
+Requires:	nodejs-nopt < 3.0.0
+Requires:	nodejs-nopt >= 2.2.0
+Requires:	nodejs-npm-install-checks < 1.1.0
+Requires:	nodejs-npm-install-checks >= 1.0.0
+Requires:	nodejs-npm-registry-client < 0.5.0
+Requires:	nodejs-npm-reqistry-client >= 0.4.4
+Requires:	nodejs-npm-user-validate = 0.0.3
+Requires:	nodejs-npmconf < 0.2.0
+Requires:	nodejs-npmconf >= 0.1.12
+Requires:	nodejs-npmlog = 0.0.6
+Requires:	nodejs-once < 1.4.0
+Requires:	nodejs-once >= 1.3.0
 Requires:	nodejs-opener < 1.4.0
+Requires:	nodejs-opener >= 1.3.0
 Requires:	nodejs-osenv < 1.0.0
-Requires:	nodejs-read >= 1.0.4
+Requires:	nodejs-path-is-inside < 1.1.0
+Requires:	nodejs-path-is-inside >= 1.0.0
 Requires:	nodejs-read < 1.1.0
-Requires:	nodejs-read-installed >= 0.1.1
-Requires:	nodejs-read-installed < 1
-Requires:	nodejs-read-package-json >= 0.3.0
-Requires:	nodejs-read-package-json < 0.4.0
-Requires:	nodejs-request >= 2.9.203
-Requires:	nodejs-request < 2.10
-Requires:	nodejs-retry >= 0.6.0
+Requires:	nodejs-read >= 1.0.4
+Requires:	nodejs-read-installed < 1.1.0
+Requires:	nodejs-read-installed >= 1.0.0
+Requires:	nodejs-read-package-json < 1.2.0
+Requires:	nodejs-read-package-json >= 1.1.7
+Requires:	nodejs-request < 2.31.0
+Requires:	nodejs-request >= 2.30.0
 Requires:	nodejs-retry < 0.7.0
-Requires:	nodejs-rimraf >= 2.0.0
-Requires:	nodejs-rimraf < 3.0.0
-Requires:	nodejs-semver >= 1.1.2
-Requires:	nodejs-semver < 1.2.0
-Requires:	nodejs-slide >= 1.0.0
-Requires:	nodejs-slide < 2.0.0
-Requires:	nodejs-tar >= 0.1.17
+Requires:	nodejs-retry >= 0.6.0
+Requires:	nodejs-rimraf < 2.3.0
+Requires:	nodejs-rimraf >= 2.2.5
+Requires:	nodejs-semver < 2.3.0
+Requires:	nodejs-semver >= 2.2.1
+Requires:	nodejs-sha < 1.3.0
+Requires:	nodejs-sha >= 1.2.1
+Requires:	nodejs-slide < 1.2.0
+Requires:	nodejs-slide >= 1.1.5
 Requires:	nodejs-tar < 0.2.0
-Requires:	nodejs-uid-number < 1.0.0
-Requires:	nodejs-which >= 1.0.0
+Requires:	nodejs-tar >= 0.1.19
+Requires:	nodejs-text-table < 0.3.0
+Requires:	nodejs-text-table >= 0.2.0
+Requires:	nodejs-uid-number = 0.0.5
 Requires:	nodejs-which < 2.0.0
+Requires:	nodejs-which >= 1.0.0
 # waf used for binary packages in nodejs < 0.8
 Suggests:	nodejs-waf
 BuildArch:	noarch
@@ -117,22 +133,10 @@ mv package/* .
 # fix shebangs
 %{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
 	bin/npm-cli.js \
-	cli.js \
-	lib/utils/cmd-shim.js \
+	cli.js
 
 # startup helpers we don't need
 rm bin/npm bin/npm.cmd
-
-# prefix all manpages with "npm-"
-for dir in man/man*; do
-	cd $dir
-	for page in *; do
-		if [[ $page != npm* ]]; then
-			mv $page npm-$page
-		fi
-	done
-	cd -
-done
 
 %build
 # forces npm to keep config files in /etc instead of /usr/etc
@@ -176,7 +180,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS LICENSE README.md doc/cli/changelog.md
+%doc AUTHORS LICENSE README.md
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/npmrc
 %ghost %{_sysconfdir}/npmignore
 %attr(755,root,root) %{_bindir}/npm
@@ -196,11 +200,18 @@ rm -rf $RPM_BUILD_ROOT
 %{nodejs_libdir}/npm/man
 
 %dir %{nodejs_libdir}/npm/doc
-%{nodejs_libdir}/npm/doc/cli
 %{nodejs_libdir}/npm/doc/api
+%{nodejs_libdir}/npm/doc/cli
+%{nodejs_libdir}/npm/doc/files
+%{nodejs_libdir}/npm/doc/misc
 
 %{_mandir}/man1/npm*
 %{_mandir}/man3/npm*
+%{_mandir}/man5/npm*
+%{_mandir}/man5/package.json.5*
+%{_mandir}/man7/npm*
+%{_mandir}/man7/removing-npm.7*
+%{_mandir}/man7/semver.7*
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
