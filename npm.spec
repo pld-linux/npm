@@ -9,11 +9,11 @@ Version:	1.4.4
 Release:	2
 License:	Artistic-2.0
 Group:		Development/Libraries
-URL:		http://npmjs.org/
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
 # Source0-md5:	78430905996a588031fdbd78facd18b9
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
+URL:		http://npmjs.org/
 BuildRequires:	bash
 BuildRequires:	nodejs >= 0.9
 BuildRequires:	rpmbuild(macros) >= 1.634
