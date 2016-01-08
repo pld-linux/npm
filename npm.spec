@@ -1,16 +1,15 @@
 # TODO
-# - https://github.com/isaacs/npm/compare/v1.2.14...v1.2.17
 # - put man3 to some -devel-doc package (man pages for npm programming)
 # - it can't live without this path: Error: ENOENT, no such file or directory '/usr/lib/node_modules/npm/man/man1/'
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.5
+Version:	1.4.6
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	3fd28934a92c64e048fafb1c9cdbf81f
+# Source0-md5:	7749f17ee0e3dfd926c54497223bdf77
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -78,8 +77,8 @@ Requires:	nodejs-path-is-inside < 1.1.0
 Requires:	nodejs-path-is-inside >= 1.0.0
 Requires:	nodejs-read < 1.1.0
 Requires:	nodejs-read >= 1.0.4
-Requires:	nodejs-read-installed < 3.0.0
-Requires:	nodejs-read-installed >= 2.0.0
+Requires:	nodejs-read-installed < 2.1.0
+Requires:	nodejs-read-installed >= 2.0.1
 Requires:	nodejs-read-package-json < 1.2.0
 Requires:	nodejs-read-package-json >= 1.1.8
 Requires:	nodejs-request < 2.31.0
