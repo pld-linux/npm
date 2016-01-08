@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.7
+Version:	1.4.8
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	f4dc40bd0a5e791bf6803aeb62b56f91
+# Source0-md5:	f554e04d9173b380eba6ced774820512
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -41,7 +41,8 @@ Requires:	nodejs-fstream >= 0.1.25
 Requires:	nodejs-fstream-npm < 0.2.0
 Requires:	nodejs-fstream-npm >= 0.1.6
 Requires:	nodejs-github-url-from-git = 1.1.1
-Requires:	nodejs-github-url-from-username-repo = 0.0.2
+Requires:	nodejs-github-url-from-username-repo < 0.2.0
+Requires:	nodejs-github-url-from-username-repo >= 0.1.0
 Requires:	nodejs-glob >= 3.2.9
 Requires:	nodejs-graceful-fs < 3.0.0
 Requires:	nodejs-graceful-fs >= 2.0.2
@@ -49,7 +50,7 @@ Requires:	nodejs-gyp < 0.14.0
 Requires:	nodejs-gyp >= 0.13.0
 Requires:	nodejs-ini < 1.2.0
 Requires:	nodejs-ini >= 1.1.0
-Requires:	nodejs-init-package-json = 0.0.15
+Requires:	nodejs-init-package-json = 0.0.16
 Requires:	nodejs-lockfile < 0.5.0
 Requires:	nodejs-lockfile >= 0.4.0
 Requires:	nodejs-lru-cache < 2.6.0
@@ -59,14 +60,14 @@ Requires:	nodejs-minimatch >= 0.2.14
 Requires:	nodejs-mkdirp < 0.4.0
 Requires:	nodejs-mkdirp >= 0.3.5
 Requires:	nodejs-nopt < 3.0.0
-Requires:	nodejs-nopt >= 2.2.0
+Requires:	nodejs-nopt >= 2.2.1
 Requires:	nodejs-npm-install-checks < 1.1.0
 Requires:	nodejs-npm-install-checks >= 1.0.0
 Requires:	nodejs-npm-registry-client < 0.5.0
 Requires:	nodejs-npm-registry-client >= 0.4.7
 Requires:	nodejs-npm-user-validate = 0.0.3
 Requires:	nodejs-npmconf < 0.2.0
-Requires:	nodejs-npmconf >= 0.1.14
+Requires:	nodejs-npmconf >= 0.1.15
 Requires:	nodejs-npmlog = 0.0.6
 Requires:	nodejs-once < 1.4.0
 Requires:	nodejs-once >= 1.3.0
@@ -80,7 +81,7 @@ Requires:	nodejs-read >= 1.0.4
 Requires:	nodejs-read-installed < 2.1.0
 Requires:	nodejs-read-installed >= 2.0.1
 Requires:	nodejs-read-package-json < 1.2.0
-Requires:	nodejs-read-package-json >= 1.1.8
+Requires:	nodejs-read-package-json >= 1.1.9
 Requires:	nodejs-request < 2.31.0
 Requires:	nodejs-request >= 2.30.0
 Requires:	nodejs-retry < 0.7.0
