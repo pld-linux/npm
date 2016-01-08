@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.6
+Version:	1.4.7
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	7749f17ee0e3dfd926c54497223bdf77
+# Source0-md5:	f4dc40bd0a5e791bf6803aeb62b56f91
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -63,10 +63,10 @@ Requires:	nodejs-nopt >= 2.2.0
 Requires:	nodejs-npm-install-checks < 1.1.0
 Requires:	nodejs-npm-install-checks >= 1.0.0
 Requires:	nodejs-npm-registry-client < 0.5.0
-Requires:	nodejs-npm-registry-client >= 0.4.5
+Requires:	nodejs-npm-registry-client >= 0.4.7
 Requires:	nodejs-npm-user-validate = 0.0.3
 Requires:	nodejs-npmconf < 0.2.0
-Requires:	nodejs-npmconf >= 0.1.13
+Requires:	nodejs-npmconf >= 0.1.14
 Requires:	nodejs-npmlog = 0.0.6
 Requires:	nodejs-once < 1.4.0
 Requires:	nodejs-once >= 1.3.0
