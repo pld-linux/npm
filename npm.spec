@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.11
+Version:	1.4.12
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	59c6696e90393ac454c7eefdb85c06d7
+# Source0-md5:	c694c02e02899739f57dc1a7341e4413
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -52,7 +52,7 @@ Requires:	nodejs-graceful-fs < 3.0.0
 Requires:	nodejs-graceful-fs >= 2.0.2
 Requires:	nodejs-gyp < 0.14.0
 Requires:	nodejs-gyp >= 0.13.0
-Requires:	nodejs-inflight < 2.0.0
+Requires:	nodejs-inflight < 1.1.0
 Requires:	nodejs-inflight >= 1.0.1
 Requires:	nodejs-ini < 1.3.0
 Requires:	nodejs-ini >= 1.2.0
