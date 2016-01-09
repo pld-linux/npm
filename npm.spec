@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.16
+Version:	1.4.17
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	ba2306ad6465668171f9c25c7645b044
+# Source0-md5:	192ced0b4ad791b2bded68c00b20649e
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -41,7 +41,7 @@ Requires:	nodejs-devel
 Requires:	nodejs-editor < 0.2.0
 Requires:	nodejs-editor >= 0.1.0
 Requires:	nodejs-fstream < 0.2.0
-Requires:	nodejs-fstream >= 0.1.27
+Requires:	nodejs-fstream >= 0.1.28
 Requires:	nodejs-fstream-npm < 0.2.0
 Requires:	nodejs-fstream-npm >= 0.1.7
 Requires:	nodejs-github-url-from-git = 1.1.1
@@ -77,8 +77,8 @@ Requires:	nodejs-npm-registry-client < 2.1
 Requires:	nodejs-npm-registry-client >= 2.0.2
 Requires:	nodejs-npm-user-validate < 0.2.0
 Requires:	nodejs-npm-user-validate >= 0.1.0
-Requires:	nodejs-npmconf < 1.1.0
-Requires:	nodejs-npmconf >= 1.0.3
+Requires:	nodejs-npmconf < 1.2
+Requires:	nodejs-npmconf >= 1.1.2
 Requires:	nodejs-npmlog < 0.2.0
 Requires:	nodejs-npmlog >= 0.1.1
 Requires:	nodejs-once < 1.4.0
@@ -109,8 +109,8 @@ Requires:	nodejs-slide < 1.2.0
 Requires:	nodejs-slide >= 1.1.5
 Requires:	nodejs-sorted-object < 1.1.0
 Requires:	nodejs-sorted-object >= 1.0.0
-Requires:	nodejs-tar < 0.2.0
-Requires:	nodejs-tar >= 0.1.19
+Requires:	nodejs-tar < 0.2
+Requires:	nodejs-tar >= 0.1.20
 Requires:	nodejs-text-table < 0.3.0
 Requires:	nodejs-text-table >= 0.2.0
 Requires:	nodejs-uid-number = 0.0.5
