@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.14
+Version:	1.4.15
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	44ec08ea1d985853ec140a676a843898
+# Source0-md5:	8b78b310fdae4826a985456d44abba94
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -20,8 +20,8 @@ BuildRequires:	sed >= 4.0
 Requires:	nodejs
 Requires:	nodejs-abbrev < 1.1.0
 Requires:	nodejs-abbrev >= 1.0.5
-Requires:	nodejs-ansi < 0.3.0
-Requires:	nodejs-ansi >= 0.2.1
+Requires:	nodejs-ansi < 0.4.0
+Requires:	nodejs-ansi >= 0.3.0
 Requires:	nodejs-ansicolors < 0.4.0
 Requires:	nodejs-ansicolors >= 0.3.2
 Requires:	nodejs-ansistyles < 0.2.0
@@ -35,28 +35,30 @@ Requires:	nodejs-child-process-close >= 0.1.1
 Requires:	nodejs-chmodr < 0.2.0
 Requires:	nodejs-chmodr >= 0.1.0
 Requires:	nodejs-chownr < 1.0.0
-Requires:	nodejs-columnify < 0.2.0
-Requires:	nodejs-columnify >= 0.1.2
+Requires:	nodejs-columnify < 1.2.0
+Requires:	nodejs-columnify >= 1.1.0
 Requires:	nodejs-devel
-Requires:	nodejs-editor = 0.0.5
+Requires:	nodejs-editor < 0.2.0
+Requires:	nodejs-editor >= 0.1.0
 Requires:	nodejs-fstream < 0.2.0
-Requires:	nodejs-fstream >= 0.1.25
+Requires:	nodejs-fstream >= 0.1.26
 Requires:	nodejs-fstream-npm < 0.2.0
 Requires:	nodejs-fstream-npm >= 0.1.7
 Requires:	nodejs-github-url-from-git = 1.1.1
-Requires:	nodejs-github-url-from-username-repo < 0.2.0
-Requires:	nodejs-github-url-from-username-repo >= 0.1.0
-Requires:	nodejs-glob < 3.3.0
-Requires:	nodejs-glob >= 3.2.10
-Requires:	nodejs-graceful-fs < 3.0.0
-Requires:	nodejs-graceful-fs >= 2.0.2
+Requires:	nodejs-github-url-from-username-repo < 0.3.0
+Requires:	nodejs-github-url-from-username-repo >= 0.2.0
+Requires:	nodejs-glob < 4.1.0
+Requires:	nodejs-glob >= 4.0.2
+Requires:	nodejs-graceful-fs < 3.1.0
+Requires:	nodejs-graceful-fs >= 3.0.0
 Requires:	nodejs-gyp < 0.14.0
 Requires:	nodejs-gyp >= 0.13.0
 Requires:	nodejs-inflight < 1.1.0
 Requires:	nodejs-inflight >= 1.0.1
 Requires:	nodejs-ini < 1.3.0
 Requires:	nodejs-ini >= 1.2.0
-Requires:	nodejs-init-package-json = 0.0.17
+Requires:	nodejs-init-package-json < 0.2.0
+Requires:	nodejs-init-package-json >= 0.1.0
 Requires:	nodejs-lockfile < 0.5.0
 Requires:	nodejs-lockfile >= 0.4.0
 Requires:	nodejs-lru-cache < 2.6.0
@@ -65,32 +67,34 @@ Requires:	nodejs-minimatch < 0.4.0
 Requires:	nodejs-minimatch >= 0.3.0
 Requires:	nodejs-mkdirp < 0.4.0
 Requires:	nodejs-mkdirp >= 0.3.5
-Requires:	nodejs-nopt < 3.0.0
-Requires:	nodejs-nopt >= 2.2.1
+Requires:	nodejs-nopt < 3.1.0
+Requires:	nodejs-nopt >= 3.0.0
 Requires:	nodejs-npm-cache-filename < 1.1.0
 Requires:	nodejs-npm-cache-filename >= 1.0.1
 Requires:	nodejs-npm-install-checks < 1.1.0
-Requires:	nodejs-npm-install-checks >= 1.0.0
+Requires:	nodejs-npm-install-checks >= 1.0.2
 Requires:	nodejs-npm-registry-client < 1.1.0
 Requires:	nodejs-npm-registry-client >= 1.0.0
 Requires:	nodejs-npm-user-validate < 0.2.0
 Requires:	nodejs-npm-user-validate >= 0.1.0
 Requires:	nodejs-npmconf < 1.1.0
-Requires:	nodejs-npmconf >= 1.0.1
-Requires:	nodejs-npmlog = 0.0.6
+Requires:	nodejs-npmconf >= 1.0.2
+Requires:	nodejs-npmlog < 0.2.0
+Requires:	nodejs-npmlog >= 0.1.0
 Requires:	nodejs-once < 1.4.0
 Requires:	nodejs-once >= 1.3.0
 Requires:	nodejs-opener < 1.4.0
 Requires:	nodejs-opener >= 1.3.0
-Requires:	nodejs-osenv < 1.0.0
+Requires:	nodejs-osenv < 0.2.0
+Requires:	nodejs-osenv >= 0.1.0
 Requires:	nodejs-path-is-inside < 1.1.0
 Requires:	nodejs-path-is-inside >= 1.0.0
 Requires:	nodejs-read < 1.1.0
 Requires:	nodejs-read >= 1.0.4
 Requires:	nodejs-read-installed < 2.1.0
-Requires:	nodejs-read-installed >= 2.0.4
-Requires:	nodejs-read-package-json < 1.2.0
-Requires:	nodejs-read-package-json >= 1.1.9
+Requires:	nodejs-read-installed >= 2.0.5
+Requires:	nodejs-read-package-json < 1.3.0
+Requires:	nodejs-read-package-json >= 1.2.2
 Requires:	nodejs-request < 2.31.0
 Requires:	nodejs-request >= 2.30.0
 Requires:	nodejs-retry < 0.7.0
