@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.21
+Version:	1.4.22
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	b3123cffb52a50b2b54ac7cad54e6d31
+# Source0-md5:	8b85ad62b7343fcfe39cbc88b0cf04dd
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -41,14 +41,15 @@ Requires:	nodejs-devel
 Requires:	nodejs-editor < 0.2.0
 Requires:	nodejs-editor >= 0.1.0
 Requires:	nodejs-fstream < 0.2.0
-Requires:	nodejs-fstream >= 0.1.28
+Requires:	nodejs-fstream >= 0.1.29
 Requires:	nodejs-fstream-npm < 0.2.0
 Requires:	nodejs-fstream-npm >= 0.1.7
-Requires:	nodejs-github-url-from-git = 1.1.1
+Requires:	nodejs-github-url-from-git < 1.3
+Requires:	nodejs-github-url-from-git >= 1.2.0
 Requires:	nodejs-github-url-from-username-repo < 0.3.0
 Requires:	nodejs-github-url-from-username-repo >= 0.2.0
-Requires:	nodejs-glob < 4.1.0
-Requires:	nodejs-glob >= 4.0.3
+Requires:	nodejs-glob < 4.1
+Requires:	nodejs-glob >= 4.0.5
 Requires:	nodejs-graceful-fs < 3.1.0
 Requires:	nodejs-graceful-fs >= 3.0.0
 Requires:	nodejs-gyp < 0.14.0
@@ -57,8 +58,8 @@ Requires:	nodejs-inflight < 1.1.0
 Requires:	nodejs-inflight >= 1.0.1
 Requires:	nodejs-ini < 1.3.0
 Requires:	nodejs-ini >= 1.2.0
-Requires:	nodejs-init-package-json < 0.2.0
-Requires:	nodejs-init-package-json >= 0.1.0
+Requires:	nodejs-init-package-json < 1.1
+Requires:	nodejs-init-package-json >= 1.0.0
 Requires:	nodejs-lockfile < 0.5.0
 Requires:	nodejs-lockfile >= 0.4.0
 Requires:	nodejs-lru-cache < 2.6.0
@@ -93,8 +94,8 @@ Requires:	nodejs-read < 1.1.0
 Requires:	nodejs-read >= 1.0.4
 Requires:	nodejs-read-installed < 2.1.0
 Requires:	nodejs-read-installed >= 2.0.5
-Requires:	nodejs-read-package-json < 1.3.0
-Requires:	nodejs-read-package-json >= 1.2.2
+Requires:	nodejs-read-package-json < 1.3
+Requires:	nodejs-read-package-json >= 1.2.4
 Requires:	nodejs-request < 2.31.0
 Requires:	nodejs-request >= 2.30.0
 Requires:	nodejs-retry < 0.7.0

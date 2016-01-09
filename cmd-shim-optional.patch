@@ -9,13 +9,13 @@
    , cmdShimIfExists = cmdShim.ifExists
    , asyncMap = require("slide").asyncMap
  
---- npm-1.4.15/package.json~	2014-06-11 04:31:44.000000000 +0300
-+++ npm-1.4.15/package.json	2016-01-09 04:21:09.785619286 +0200
+--- npm-1.4.22/package.json~	2014-07-31 20:24:36.000000000 +0300
++++ npm-1.4.22/package.json	2016-01-10 01:14:20.995429555 +0200
 @@ -41,7 +41,6 @@
      "child-process-close": "~0.1.1",
      "chmodr": "~0.1.0",
      "chownr": "0",
--    "cmd-shim": "~1.1.1",
+-    "cmd-shim": "~1.1.2",
      "columnify": "~1.1.0",
      "editor": "~0.1.0",
-     "fstream": "~0.1.26",
+     "fstream": "~0.1.29",
