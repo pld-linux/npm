@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.13
+Version:	1.4.14
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	3a14b08705d0d571fc18d5a7752e4c80
+# Source0-md5:	44ec08ea1d985853ec140a676a843898
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -29,7 +29,7 @@ Requires:	nodejs-ansistyles >= 0.1.3
 Requires:	nodejs-archy < 1.0.0
 Requires:	nodejs-block-stream = 0.0.7
 Requires:	nodejs-char-spinner < 1.1.0
-Requires:	nodejs-char-spinner >= 1.0.0
+Requires:	nodejs-char-spinner >= 1.0.1
 Requires:	nodejs-child-process-close < 0.2.0
 Requires:	nodejs-child-process-close >= 0.1.1
 Requires:	nodejs-chmodr < 0.2.0
