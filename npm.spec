@@ -52,8 +52,6 @@ Requires:	nodejs-glob < 4.1
 Requires:	nodejs-glob >= 4.0.5
 Requires:	nodejs-graceful-fs < 3.1.0
 Requires:	nodejs-graceful-fs >= 3.0.0
-Requires:	nodejs-gyp < 1.1
-Requires:	nodejs-gyp >= 1.0.1
 Requires:	nodejs-inflight < 1.1.0
 Requires:	nodejs-inflight >= 1.0.1
 Requires:	nodejs-ini < 1.3.0
@@ -117,6 +115,9 @@ Requires:	nodejs-text-table >= 0.2.0
 Requires:	nodejs-uid-number = 0.0.5
 Requires:	nodejs-which < 2.0.0
 Requires:	nodejs-which >= 1.0.0
+Suggests:	nodejs-gyp
+Conflicts:	nodejs-gyp < 1.0.1
+Conflicts:	nodejs-gyp >= 1.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
