@@ -4,12 +4,12 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 Summary:	A package manager for node.js
 Name:		npm
-Version:	1.4.24
+Version:	1.4.25
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	6f6d574ce27b2986277a6df51a0d99bb
+# Source0-md5:	9716206d0df970aaf80bd6df31264ba2
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -41,7 +41,7 @@ Requires:	nodejs-devel
 Requires:	nodejs-editor < 0.2.0
 Requires:	nodejs-editor >= 0.1.0
 Requires:	nodejs-fstream < 1.1
-Requires:	nodejs-fstream >= 1.0.0
+Requires:	nodejs-fstream >= 1.0.2
 Requires:	nodejs-fstream-npm < 1.1
 Requires:	nodejs-fstream-npm >= 1.0.0
 Requires:	nodejs-github-url-from-git < 1.4
@@ -60,8 +60,8 @@ Requires:	nodejs-ini < 1.3.0
 Requires:	nodejs-ini >= 1.2.0
 Requires:	nodejs-init-package-json < 1.1
 Requires:	nodejs-init-package-json >= 1.0.0
-Requires:	nodejs-lockfile < 0.5.0
-Requires:	nodejs-lockfile >= 0.4.0
+Requires:	nodejs-lockfile < 1.1
+Requires:	nodejs-lockfile >= 1.0.0
 Requires:	nodejs-lru-cache < 2.6.0
 Requires:	nodejs-lru-cache >= 2.5.0
 Requires:	nodejs-minimatch < 1.1
@@ -75,7 +75,7 @@ Requires:	nodejs-npm-cache-filename >= 1.0.1
 Requires:	nodejs-npm-install-checks < 1.1.0
 Requires:	nodejs-npm-install-checks >= 1.0.2
 Requires:	nodejs-npm-registry-client < 2.1
-Requires:	nodejs-npm-registry-client >= 2.0.4
+Requires:	nodejs-npm-registry-client >= 2.0.6
 Requires:	nodejs-npm-user-validate < 0.2.0
 Requires:	nodejs-npm-user-validate >= 0.1.0
 Requires:	nodejs-npmconf < 1.2
@@ -111,7 +111,7 @@ Requires:	nodejs-slide >= 1.1.5
 Requires:	nodejs-sorted-object < 1.1.0
 Requires:	nodejs-sorted-object >= 1.0.0
 Requires:	nodejs-tar < 1.1
-Requires:	nodejs-tar >= 1.0.0
+Requires:	nodejs-tar >= 1.0.1
 Requires:	nodejs-text-table < 0.3.0
 Requires:	nodejs-text-table >= 0.2.0
 Requires:	nodejs-uid-number = 0.0.5
