@@ -117,8 +117,6 @@ Requires:	nodejs-text-table >= 0.2.0
 Requires:	nodejs-uid-number = 0.0.5
 Requires:	nodejs-which < 2.0.0
 Requires:	nodejs-which >= 1.0.0
-# waf used for binary packages in nodejs < 0.8
-Suggests:	nodejs-waf
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
