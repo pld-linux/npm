@@ -37,7 +37,6 @@ Requires:	nodejs-chmodr >= 0.1.0
 Requires:	nodejs-chownr < 1.0.0
 Requires:	nodejs-columnify < 1.2.0
 Requires:	nodejs-columnify >= 1.1.0
-Requires:	nodejs-devel
 Requires:	nodejs-editor < 0.2.0
 Requires:	nodejs-editor >= 0.1.0
 Requires:	nodejs-fstream < 1.1
