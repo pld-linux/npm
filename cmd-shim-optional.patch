@@ -1,21 +1,21 @@
---- npm-1.2.17/lib/build.js~	2013-04-03 19:11:45.000000000 +0300
-+++ npm-1.2.17/lib/build.js	2013-04-04 22:37:51.277211534 +0300
+--- npm-3.10.8/lib/build.js.orig	2016-07-01 22:52:19.000000000 +0200
++++ npm-3.10.8/lib/build.js	2016-09-12 09:38:31.069484189 +0200
 @@ -16,7 +16,7 @@
-   , readJson = require("read-package-json")
-   , link = require("./utils/link.js")
-   , linkIfExists = link.ifExists
--  , cmdShim = require("cmd-shim")
-+  , cmdShim = (process.platform === "win32") ? require("cmd-shim") : {}
-   , cmdShimIfExists = cmdShim.ifExists
-   , asyncMap = require("slide").asyncMap
- 
---- npm-1.4.22/package.json~	2014-07-31 20:24:36.000000000 +0300
-+++ npm-1.4.22/package.json	2016-01-10 01:14:20.995429555 +0200
-@@ -41,7 +41,6 @@
-     "child-process-close": "~0.1.1",
-     "chmodr": "~0.1.0",
-     "chownr": "0",
--    "cmd-shim": "~1.1.2",
-     "columnify": "~1.1.0",
-     "editor": "~0.1.0",
-     "fstream": "~0.1.29",
+ var readJson = require('read-package-json')
+ var link = require('./utils/link.js')
+ var linkIfExists = link.ifExists
+-var cmdShim = require('cmd-shim')
++var cmdShim = (process.platform === "win32") ? require("cmd-shim") : {}
+ var cmdShimIfExists = cmdShim.ifExists
+ var asyncMap = require('slide').asyncMap
+ var ini = require('ini')
+--- npm-3.10.8/package.json.orig	2016-09-09 03:21:47.000000000 +0200
++++ npm-3.10.8/package.json	2016-09-12 09:38:42.202817644 +0200
+@@ -37,7 +37,6 @@
+     "archy": "~1.0.0",
+     "asap": "~2.0.4",
+     "chownr": "~1.0.1",
+-    "cmd-shim": "~2.0.2",
+     "columnify": "~1.5.4",
+     "config-chain": "~1.1.10",
+     "dezalgo": "~1.0.3",
