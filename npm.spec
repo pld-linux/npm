@@ -4,7 +4,7 @@
 # - npm-debug.log is created with 777 perms, should respect umask instead
 
 # build package without bundled node-gyp module
-%bcond_without  bundled_gyp 
+%bcond_without  bundled_gyp
 
 Summary:	A package manager for node.js
 Name:		npm
@@ -14,7 +14,7 @@ License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
 # Source0-md5:	f470ec0065a5a181a432f008a3a97dda
-Patch0:		link-globalPaths.patch 
+Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
 BuildRequires:	bash
@@ -62,6 +62,13 @@ mv package/* .
 # startup helpers we don't need
 rm bin/npm bin/npm.cmd
 
+# clean up node_modules/
+for i in README.md Readme.md README.markdown LICENSE LICENSE.md CHANGES.md \
+         changelog.md .npmignore .travis.yml test examples example; do
+	find node_modules -name $i | xargs -r rm -rv
+done
+rm lib/fetch-package-metadata.md
+
 %build
 # forces npm to keep config files in /etc instead of /usr/etc
 ./configure \
@@ -78,13 +85,6 @@ install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 cp -a lib cli.js npmrc package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 cp -p bin/*.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
-
-# clean up node_modules/
-for i in README.md Readme.md README.markdown LICENSE LICENSE.md CHANGES.md \
-         changelog.md .npmignore .travis.yml test examples example; do 
-	find node_modules -name $i | xargs -r rm -r
-done
-rm lib/fetch-package-metadata.md
 
 %if %{without bundled_gyp}
 rm -r node_modules/node-gyp
@@ -153,4 +153,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
-/etc/bash_completion.d/*
+/etc/bash_completion.d/npm.sh
