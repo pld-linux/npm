@@ -82,8 +82,9 @@ ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 # clean up node_modules/
 for i in README.md Readme.md README.markdown LICENSE LICENSE.md CHANGES.md \
          changelog.md .npmignore .travis.yml test examples example; do 
-    find node_modules -name $i | xargs -r rm -r
+	find node_modules -name $i | xargs -r rm -r
 done
+rm lib/fetch-package-metadata.md
 
 %if %{without bundled_gyp}
 rm -r node_modules/node-gyp
