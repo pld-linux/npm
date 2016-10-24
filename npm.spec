@@ -9,7 +9,7 @@
 Summary:	A package manager for node.js
 Name:		npm
 Version:	3.10.8
-Release:	1
+Release:	2
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
