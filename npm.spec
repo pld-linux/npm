@@ -64,7 +64,7 @@ rm bin/npm bin/npm.cmd
 
 # clean up node_modules/
 for i in README.md Readme.md README.markdown LICENSE LICENSE.md CHANGES.md \
-         changelog.md .npmignore .travis.yml test examples example; do
+         changelog.md .npmignore .travis.yml test examples example samples; do
 	find node_modules -name $i | xargs -r rm -rv
 done
 rm lib/fetch-package-metadata.md
