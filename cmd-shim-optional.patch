@@ -1,21 +1,23 @@
---- npm-3.10.8/lib/build.js.orig	2016-07-01 22:52:19.000000000 +0200
-+++ npm-3.10.8/lib/build.js	2016-09-12 09:38:31.069484189 +0200
-@@ -16,7 +16,7 @@
- var readJson = require('read-package-json')
- var link = require('./utils/link.js')
- var linkIfExists = link.ifExists
+diff -ur package.orig/node_modules/read-cmd-shim/test/integration.js package/node_modules/read-cmd-shim/test/integration.js
+--- package.orig/node_modules/read-cmd-shim/test/integration.js	1985-10-26 09:15:00.000000000 +0100
++++ package/node_modules/read-cmd-shim/test/integration.js	2019-05-20 14:27:58.398000000 +0200
+@@ -3,7 +3,7 @@
+ var fs = require('graceful-fs')
+ var test = require('tap').test
+ var rimraf = require('rimraf')
 -var cmdShim = require('cmd-shim')
 +var cmdShim = (process.platform === "win32") ? require("cmd-shim") : {}
- var cmdShimIfExists = cmdShim.ifExists
- var asyncMap = require('slide').asyncMap
- var ini = require('ini')
---- npm-3.10.8/package.json.orig	2016-09-09 03:21:47.000000000 +0200
-+++ npm-3.10.8/package.json	2016-09-12 09:38:42.202817644 +0200
-@@ -37,7 +37,6 @@
-     "archy": "~1.0.0",
-     "asap": "~2.0.4",
-     "chownr": "~1.0.1",
+ var readCmdShim = require('../index.js')
+ var workDir = path.join(__dirname, path.basename(__filename, '.js'))
+ var testShbang = path.join(workDir, 'test-shbang')
+diff -ur package.orig/package.json package/package.json
+--- package.orig/package.json	1985-10-26 09:15:00.000000000 +0100
++++ package/package.json	2019-05-20 14:28:25.366000000 +0200
+@@ -48,7 +48,6 @@
+     "ci-info": "^2.0.0",
+     "cli-columns": "^3.1.2",
+     "cli-table3": "^0.5.1",
 -    "cmd-shim": "~2.0.2",
      "columnify": "~1.5.4",
-     "config-chain": "~1.1.10",
-     "dezalgo": "~1.0.3",
+     "config-chain": "^1.1.12",
+     "detect-indent": "~5.0.0",

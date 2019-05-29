@@ -8,12 +8,12 @@
 
 Summary:	A package manager for node.js
 Name:		npm
-Version:	3.10.8
-Release:	2
+Version:	6.9.0
+Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	f470ec0065a5a181a432f008a3a97dda
+# Source0-md5:	37d19666ae627bc5f8acdab48a8a0eed
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -57,16 +57,17 @@ mv package/* .
 # fix shebangs
 %{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
 	bin/npm-cli.js \
-	cli.js
+	bin/npx-cli.js
 
 # startup helpers we don't need
 rm bin/npm bin/npm.cmd
 
 # clean up node_modules/
-for i in README.md Readme.md README.markdown LICENSE LICENSE.md CHANGES.md \
-         changelog.md .npmignore .travis.yml test examples example samples; do
+for i in README.markdown LICENSE \
+	.npmignore .travis.yml test examples example samples; do
 	find node_modules -name $i -print0 | sort -rz | xargs -0r rm -rv
 done
+find node_modules -name \*.md -print0 -exec rm -v {} \;
 rm lib/fetch-package-metadata.md
 
 %build
@@ -82,9 +83,10 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm/bin,/etc/bash_completion.d}
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 
-cp -a lib cli.js npmrc package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -a lib npmrc package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 cp -p bin/*.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
+ln -s %{nodejs_libdir}/npm/bin/npx-cli.js $RPM_BUILD_ROOT%{_bindir}/npx
 
 %if %{without bundled_gyp}
 rm -r node_modules/node-gyp
@@ -120,19 +122,21 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/npmrc
 %ghost %{_sysconfdir}/npmignore
 %attr(755,root,root) %{_bindir}/npm
+%attr(755,root,root) %{_bindir}/npx
 %dir %{nodejs_libdir}/npm
 %{nodejs_libdir}/npm/package.json
-%{nodejs_libdir}/npm/cli.js
 %{nodejs_libdir}/npm/npmrc
 
 %dir %{nodejs_libdir}/npm/bin
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-cli.js
-%attr(755,root,root) %{nodejs_libdir}/npm/bin/read-package-json.js
+%attr(755,root,root) %{nodejs_libdir}/npm/bin/npx-cli.js
 %dir %{nodejs_libdir}/npm/lib
 %{nodejs_libdir}/npm/lib/*.js
-%{nodejs_libdir}/npm/lib/cache
+%{nodejs_libdir}/npm/lib/auth
 %{nodejs_libdir}/npm/lib/config
+%{nodejs_libdir}/npm/lib/doctor
 %{nodejs_libdir}/npm/lib/install
+%{nodejs_libdir}/npm/lib/search
 %{nodejs_libdir}/npm/lib/utils
 %{nodejs_libdir}/npm/node_modules
 
@@ -143,10 +147,13 @@ rm -rf $RPM_BUILD_ROOT
 %{nodejs_libdir}/npm/doc/cli
 %{nodejs_libdir}/npm/doc/files
 %{nodejs_libdir}/npm/doc/misc
+%{nodejs_libdir}/npm/doc/spec
 
 %{_mandir}/man1/npm*
+%{_mandir}/man1/npx*
 %{_mandir}/man5/npm*
 %{_mandir}/man5/package.json.5*
+%{_mandir}/man5/package-lock.json.5*
 %{_mandir}/man7/npm*
 %{_mandir}/man7/removing-npm.7*
 %{_mandir}/man7/semver.7*

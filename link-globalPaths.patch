@@ -1,5 +1,6 @@
---- npm-3.10.8/lib/link.js.orig	2016-07-01 22:52:19.000000000 +0200
-+++ npm-3.10.8/lib/link.js	2016-09-12 09:55:21.476161853 +0200
+diff -ur package.orig/lib/link.js package/lib/link.js
+--- package.orig/lib/link.js	1985-10-26 09:15:00.000000000 +0100
++++ package/lib/link.js	2019-05-20 14:27:13.126000000 +0200
 @@ -8,6 +8,7 @@
  var asyncMap = require('slide').asyncMap
  var chain = require('slide').chain
