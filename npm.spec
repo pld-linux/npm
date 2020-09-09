@@ -8,12 +8,12 @@
 
 Summary:	A package manager for node.js
 Name:		npm
-Version:	6.9.0
+Version:	6.14.8
 Release:	1
 License:	Artistic-2.0
 Group:		Development/Libraries
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	37d19666ae627bc5f8acdab48a8a0eed
+# Source0-md5:	ef90bb5e76fda0a1e248036b916c8fd8
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		http://npmjs.org/
@@ -54,10 +54,12 @@ mv package/* .
 %patch0 -p1
 %patch1 -p1
 
-# fix shebangs
-%{__sed} -i -e '1s,^#!.*node,#!/usr/bin/node,' \
-	bin/npm-cli.js \
-	bin/npx-cli.js
+grep -rl '#!.*env \(node\|python\|sh\|bash\)' . | xargs %{__sed} -i -e '1{
+	s,^#!.*bin/env bash,#!%{__bash},
+	s,^#!.*bin/env node,#!/usr/bin/node,
+	s,^#!.*bin/env python,#!%{__python},
+	s,^#!.*bin/env sh,#!%{__sh},
+}'
 
 # startup helpers we don't need
 rm bin/npm bin/npm.cmd
@@ -95,7 +97,7 @@ cp -r node_modules $RPM_BUILD_ROOT%{nodejs_libdir}/npm/
 
 # for npm help
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
-cp -a doc/* $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
+cp -a docs/content/* $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
 
 # ghosted global config files
 # TODO: package as files to have file permissions set
@@ -144,18 +146,17 @@ rm -rf $RPM_BUILD_ROOT
 %{nodejs_libdir}/npm/man
 
 %dir %{nodejs_libdir}/npm/doc
-%{nodejs_libdir}/npm/doc/cli
-%{nodejs_libdir}/npm/doc/files
-%{nodejs_libdir}/npm/doc/misc
-%{nodejs_libdir}/npm/doc/spec
+%{nodejs_libdir}/npm/doc/cli-commands
+%{nodejs_libdir}/npm/doc/configuring-npm
+%{nodejs_libdir}/npm/doc/using-npm
 
-%{_mandir}/man1/npm*
-%{_mandir}/man1/npx*
-%{_mandir}/man5/npm*
-%{_mandir}/man5/package.json.5*
-%{_mandir}/man5/package-lock.json.5*
-%{_mandir}/man7/npm*
-%{_mandir}/man7/removing-npm.7*
+%{_mandir}/man1/npm*.1*
+%{_mandir}/man1/npx*.1*
+%{_mandir}/man5/npm*.5*
+%{_mandir}/man5/package-json.5*
+%{_mandir}/man5/package-lock-json.5*
+%{_mandir}/man5/package-locks.5*
+%{_mandir}/man5/shrinkwrap-json.5*
 %{_mandir}/man7/semver.7*
 
 %files -n bash-completion-%{name}
