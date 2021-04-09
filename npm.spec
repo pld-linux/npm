@@ -9,12 +9,12 @@
 Summary:	A package manager for node.js
 Summary(pl.UTF-8):	Zarządca pakietów dla node.js
 Name:		npm
-Version:	6.14.8
+Version:	6.14.12
 Release:	1
 License:	Artistic v2.0
 Group:		Development/Tools
 Source0:	http://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	ef90bb5e76fda0a1e248036b916c8fd8
+# Source0-md5:	5332bde500931393ca898fdde0846eec
 Patch0:		link-globalPaths.patch
 Patch1:		cmd-shim-optional.patch
 URL:		https://www.npmjs.com/
