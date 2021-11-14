@@ -10,7 +10,7 @@ Summary:	A package manager for node.js
 Summary(pl.UTF-8):	Zarządca pakietów dla node.js
 Name:		npm
 Version:	6.14.15
-Release:	1
+Release:	2
 License:	Artistic v2.0
 Group:		Development/Tools
 Source0:	https://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
@@ -61,7 +61,7 @@ bashowe uzupełnianie parametrów dla poleceń NPM.
 grep -rl '#!.*env \(node\|python\|sh\|bash\)' . | xargs %{__sed} -i -e '1{
 	s,^#!.*bin/env bash,#!%{__bash},
 	s,^#!.*bin/env node,#!/usr/bin/node,
-	s,^#!.*bin/env python,#!%{__python},
+	s,^#!.*bin/env python3\?,#!%{__python3},
 	s,^#!.*bin/env sh,#!%{__sh},
 }'
 
