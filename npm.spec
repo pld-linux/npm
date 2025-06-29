@@ -55,8 +55,8 @@ bashowe uzupełnianie parametrów dla poleceń NPM.
 %prep
 %setup -qc
 %{__mv} package/* .
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 grep -rl '#!.*env \(node\|python\|sh\|bash\)' . | xargs %{__sed} -i -e '1{
 	s,^#!.*bin/env bash,#!%{__bash},
