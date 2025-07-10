@@ -1,39 +1,75 @@
-diff -ur package.orig/lib/link.js package/lib/link.js
---- package.orig/lib/link.js	1985-10-26 09:15:00.000000000 +0100
-+++ package/lib/link.js	2019-05-20 14:27:13.126000000 +0200
-@@ -8,6 +8,7 @@
- var asyncMap = require('slide').asyncMap
- var chain = require('slide').chain
- var path = require('path')
-+var globalPaths = require('module').globalPaths
- var build = require('./build.js')
- var npa = require('npm-package-arg')
- var usage = require('./utils/usage')
-@@ -98,11 +99,24 @@
-       })
+--- npm-10.9.3/lib/commands/link.js.orig	1985-10-26 09:15:00.000000000 +0100
++++ npm-10.9.3/lib/commands/link.js	2025-07-10 12:55:55.539989772 +0200
+@@ -1,10 +1,11 @@
+-const { readdir } = require('node:fs/promises')
++const { readdir, stat } = require('node:fs/promises')
+ const { resolve } = require('node:path')
+ const npa = require('npm-package-arg')
+ const pkgJson = require('@npmcli/package-json')
+ const semver = require('semver')
+ const reifyFinish = require('../utils/reify-finish.js')
+ const ArboristWorkspaceCmd = require('../arborist-cmd.js')
++const globalPaths = require("module").globalPaths
+ 
+ class Link extends ArboristWorkspaceCmd {
+   static description = 'Symlink a package folder'
+@@ -79,9 +80,31 @@
+         !node.isRoot || args.some(a => npa(a).name === kid),
+     })
+ 
++    const missing = this.missingArgsFromTree(globals, args)
++    const names = []
++    const globalArgs = [...args]
++
++    for (let i = 0; i < globalPaths.length && missing.length; i++) {
++      if (globalPaths[i] === this.npm.globalDir)
++        continue
++      try {
++        await stat(globalPaths[i])
++      } catch {
++        continue
++      }
++      for (let m = missing.length - 1; m >= 0; m--) {
++        try {
++          await stat(resolve(globalPaths[i], npa(missing[m]).name))
++          names.push({path: globalPaths[i], name: npa(missing[m]).name})
++          globalArgs.splice(globalArgs.indexOf(missing[m]), 1)
++          missing.splice(m, 1)
++        } catch {
++        }
++      }
++    }
++
+     // any extra arg that is missing from the current
+     // global space should be reified there first
+-    const missing = this.missingArgsFromTree(globals, args)
+     if (missing.length) {
+       await globalArb.reify({
+         ...globalOpts,
+@@ -90,14 +113,13 @@
      }
  
--    fs.lstat(pp, function (er, st) {
--      if (er) {
-+    // find pp from globalPaths
-+    asyncMap(globalPaths, function(f, cb) {
-+      f = path.resolve(f, pkg)
-+      fs.lstat(f, function(er, st) {
-+        if (er) {
-+          cb()
-+        } else {
-+          cb(null, f, st)
-+        }
-+      });
-+    }, function(er, f, st) {
-+      pp = f && f[0] || path.resolve(npm.globalDir, pkg)
-+
-+      if (er) return cb()
-+      if (!f || !f[0]) {
-         rp = pp
-         return npm.commands.install(t, [pkg], n)
--      } else if (!st.isSymbolicLink()) {
-+      } else if (!st[0].isSymbolicLink()) {
-         rp = pp
-         next()
+     // get a list of module names that should be linked in the local prefix
+-    const names = []
+-    for (const a of args) {
++    for (const a of globalArgs) {
+       const arg = npa(a)
+       if (arg.type === 'directory') {
+         const { content } = await pkgJson.normalize(arg.fetchSpec)
+-        names.push(content.name)
++        names.push({path: this.npm.globalDir, name: content.name})
        } else {
+-        names.push(arg.name)
++        names.push({path: this.npm.globalDir, name: arg.name})
+       }
+     }
+ 
+@@ -124,7 +146,7 @@
+       ...this.npm.flatOptions,
+       prune: false,
+       path: this.npm.prefix,
+-      add: names.map(l => `file:${resolve(globalTop, 'node_modules', l)}`),
++      add: names.map(l => `file:${resolve(l.path, l.name)}`),
+       save,
+       workspaces: this.workspaceNames,
+     })

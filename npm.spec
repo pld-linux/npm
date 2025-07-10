@@ -9,20 +9,20 @@
 Summary:	A package manager for node.js
 Summary(pl.UTF-8):	Zarządca pakietów dla node.js
 Name:		npm
-Version:	6.14.15
-Release:	2
+Version:	10.9.3
+Release:	1
 License:	Artistic v2.0
 Group:		Development/Tools
 Source0:	https://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	51bb7ac69421253bdf08c7a09b7966bc
+# Source0-md5:	6888d33b9561affd1bcbb4596524a2e7
 Patch0:		link-globalPaths.patch
-Patch1:		cmd-shim-optional.patch
+Patch1:		global-config-path.patch
 URL:		https://www.npmjs.com/
 BuildRequires:	bash
-BuildRequires:	nodejs >= 6
+BuildRequires:	nodejs >= 20.5.0
 BuildRequires:	rpmbuild(macros) >= 1.634
 BuildRequires:	sed >= 4.0
-Requires:	nodejs >= 6
+Requires:	nodejs >= 20.5.0
 %if %{without bundled_gyp}
 Suggests:	nodejs-gyp = 5.1.0
 Conflicts:	nodejs-gyp < 5.1.0
@@ -74,22 +74,13 @@ for i in README.markdown LICENSE \
 	find node_modules -name $i -print0 | sort -rz | xargs -0r %{__rm} -rv
 done
 find node_modules -name \*.md -print0 -exec %{__rm} -v {} \;
-%{__rm} lib/fetch-package-metadata.md
-
-%build
-# forces npm to keep config files in /etc instead of /usr/etc
-./configure \
-	--globalconfig=%{_sysconfdir}/npmrc \
-	--globalignorefile=%{_sysconfdir}/npmignore
-
-cat npmrc
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{nodejs_libdir}/npm/bin,/etc/bash_completion.d}
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 
-cp -a lib npmrc package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
+cp -a lib package.json $RPM_BUILD_ROOT%{nodejs_libdir}/npm
 cp -p bin/*.js $RPM_BUILD_ROOT%{nodejs_libdir}/npm/bin
 ln -s %{nodejs_libdir}/npm/bin/npm-cli.js $RPM_BUILD_ROOT%{_bindir}/npm
 ln -s %{nodejs_libdir}/npm/bin/npx-cli.js $RPM_BUILD_ROOT%{_bindir}/npx
@@ -105,9 +96,8 @@ cp -a docs/content/* $RPM_BUILD_ROOT%{nodejs_libdir}/npm/doc
 
 # ghosted global config files
 # TODO: package as files to have file permissions set
-install -d $RPM_BUILD_ROOT%{_sysconfdir}
-cp -p npmrc $RPM_BUILD_ROOT%{_sysconfdir}/npmrc
-touch $RPM_BUILD_ROOT%{_sysconfdir}/npmignore
+install -d $RPM_BUILD_ROOT/etc
+touch $RPM_BUILD_ROOT/etc/npmrc
 
 # install to mandir
 install -d $RPM_BUILD_ROOT%{_mandir}
@@ -124,33 +114,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CHANGELOG.md LICENSE README.md
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/npmrc
-%ghost %{_sysconfdir}/npmignore
+%doc LICENSE README.md
+%config(noreplace) %verify(not md5 mtime size) /etc/npmrc
 %attr(755,root,root) %{_bindir}/npm
 %attr(755,root,root) %{_bindir}/npx
 %dir %{nodejs_libdir}/npm
 %{nodejs_libdir}/npm/package.json
-%{nodejs_libdir}/npm/npmrc
 
 %dir %{nodejs_libdir}/npm/bin
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-cli.js
+%attr(755,root,root) %{nodejs_libdir}/npm/bin/npm-prefix.js
 %attr(755,root,root) %{nodejs_libdir}/npm/bin/npx-cli.js
-%dir %{nodejs_libdir}/npm/lib
-%{nodejs_libdir}/npm/lib/*.js
-%{nodejs_libdir}/npm/lib/auth
-%{nodejs_libdir}/npm/lib/config
-%{nodejs_libdir}/npm/lib/doctor
-%{nodejs_libdir}/npm/lib/install
-%{nodejs_libdir}/npm/lib/search
-%{nodejs_libdir}/npm/lib/utils
+%{nodejs_libdir}/npm/lib
 %{nodejs_libdir}/npm/node_modules
 
 # man symlink
 %{nodejs_libdir}/npm/man
 
 %dir %{nodejs_libdir}/npm/doc
-%{nodejs_libdir}/npm/doc/cli-commands
+%{nodejs_libdir}/npm/doc/commands
 %{nodejs_libdir}/npm/doc/configuring-npm
 %{nodejs_libdir}/npm/doc/using-npm
 
@@ -162,17 +144,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/npm*.5*
 %{_mandir}/man5/package-json.5*
 %{_mandir}/man5/package-lock-json.5*
-%{_mandir}/man5/package-locks.5*
-%{_mandir}/man5/shrinkwrap-json.5*
 %{_mandir}/man7/config.7*
+%{_mandir}/man7/dependency-selectors.7*
 %{_mandir}/man7/developers.7*
-%{_mandir}/man7/disputes.7*
+%{_mandir}/man7/logging.7*
+%{_mandir}/man7/package-spec.7*
 %{_mandir}/man7/orgs.7*
 %{_mandir}/man7/registry.7*
 %{_mandir}/man7/removal.7*
 %{_mandir}/man7/scope.7*
 %{_mandir}/man7/scripts.7*
-%{_mandir}/man7/semver.7*
+%{_mandir}/man7/workspaces.7*
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)

@@ -1,0 +1,11 @@
+--- npm-10.9.3/node_modules/@npmcli/config/lib/index.js.orig	1985-10-26 09:15:00.000000000 +0100
++++ npm-10.9.3/node_modules/@npmcli/config/lib/index.js	2025-07-10 13:03:57.914526277 +0200
+@@ -290,7 +290,7 @@
+     // define a custom getter, but turn into a normal prop
+     // if we set it.  otherwise it can't be set on child objects
+     Object.defineProperty(data, 'globalconfig', {
+-      get: () => resolve(this.#get('prefix'), 'etc/npmrc'),
++      get: () => '/etc/npmrc',
+       set (value) {
+         Object.defineProperty(data, 'globalconfig', {
+           value,
