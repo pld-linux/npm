@@ -19,7 +19,6 @@ Patch0:		link-globalPaths.patch
 Patch1:		global-config-path.patch
 URL:		https://www.npmjs.com/
 BuildRequires:	bash
-BuildRequires:	nodejs >= 20.5.0
 BuildRequires:	rpmbuild(macros) >= 1.634
 BuildRequires:	sed >= 4.0
 Requires:	nodejs >= 20.5.0
