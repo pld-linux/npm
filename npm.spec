@@ -9,12 +9,12 @@
 Summary:	A package manager for node.js
 Summary(pl.UTF-8):	Zarządca pakietów dla node.js
 Name:		npm
-Version:	11.9.0
+Version:	11.11.0
 Release:	1
 License:	Artistic v2.0
 Group:		Development/Tools
 Source0:	https://registry.npmjs.org/npm/-/%{name}-%{version}.tgz
-# Source0-md5:	7e1ea5cadc12cf507e13ccf52ac0435a
+# Source0-md5:	781b1e3d301b11120ab7366a0f80c0f1
 Patch0:		link-globalPaths.patch
 Patch1:		global-config-path.patch
 URL:		https://www.npmjs.com/
