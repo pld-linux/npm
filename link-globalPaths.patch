@@ -1,6 +1,6 @@
 --- npm-10.9.3/lib/commands/link.js.orig	1985-10-26 09:15:00.000000000 +0100
 +++ npm-10.9.3/lib/commands/link.js	2025-07-10 12:55:55.539989772 +0200
-@@ -1,10 +1,11 @@
+@@ -1,9 +1,10 @@
 -const { readdir } = require('node:fs/promises')
 +const { readdir, stat } = require('node:fs/promises')
  const { resolve } = require('node:path')
@@ -40,8 +40,7 @@
 +      }
 +    }
 +
-     // any extra arg that is missing from the current
-     // global space should be reified there first
+     // any extra arg that is missing from the current global space should be reified there first
 -    const missing = this.missingArgsFromTree(globals, args)
      if (missing.length) {
        await globalArb.reify({
