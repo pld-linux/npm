@@ -1,23 +1,25 @@
---- npm-10.9.3/lib/commands/link.js.orig	1985-10-26 09:15:00.000000000 +0100
-+++ npm-10.9.3/lib/commands/link.js	2025-07-10 12:55:55.539989772 +0200
-@@ -1,9 +1,10 @@
+--- npm-11.17.0/lib/commands/link.js.orig	1985-10-26 09:15:00.000000000 +0100
++++ npm-11.17.0/lib/commands/link.js	2026-06-17 12:00:00.000000000 +0200
+@@ -1,4 +1,4 @@
 -const { readdir } = require('node:fs/promises')
 +const { readdir, stat } = require('node:fs/promises')
  const { resolve } = require('node:path')
  const npa = require('npm-package-arg')
  const pkgJson = require('@npmcli/package-json')
- const semver = require('semver')
+@@ -6,6 +6,7 @@
  const reifyFinish = require('../utils/reify-finish.js')
+ const resolveAllowScripts = require('../utils/resolve-allow-scripts.js')
  const ArboristWorkspaceCmd = require('../arborist-cmd.js')
 +const globalPaths = require("module").globalPaths
  
  class Link extends ArboristWorkspaceCmd {
    static description = 'Symlink a package folder'
-@@ -79,9 +80,31 @@
+@@ -83,8 +84,30 @@
          !node.isRoot || args.some(a => npa(a).name === kid),
      })
  
-+    const missing = this.missingArgsFromTree(globals, args)
+-    // any extra arg that is missing from the current global space should be reified there first
+     const missing = this.missingArgsFromTree(globals, args)
 +    const names = []
 +    const globalArgs = [...args]
 +
@@ -40,12 +42,11 @@
 +      }
 +    }
 +
-     // any extra arg that is missing from the current global space should be reified there first
--    const missing = this.missingArgsFromTree(globals, args)
++    // any extra arg that is missing from the current global space should be reified there first
      if (missing.length) {
        await globalArb.reify({
          ...globalOpts,
-@@ -90,14 +113,13 @@
+@@ -93,14 +116,13 @@
      }
  
      // get a list of module names that should be linked in the local prefix
@@ -63,7 +64,7 @@
        }
      }
  
-@@ -124,7 +146,7 @@
+@@ -128,7 +150,7 @@
        ...this.npm.flatOptions,
        prune: false,
        path: this.npm.prefix,
@@ -71,4 +72,4 @@
 +      add: names.map(l => `file:${resolve(l.path, l.name)}`),
        save,
        workspaces: this.workspaceNames,
-     })
+       allowScripts: allowScriptsPolicy,
